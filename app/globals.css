@@ -1,0 +1,271 @@
+@import "tailwindcss";
+
+@theme {
+  /* Color palette */
+  --color-bg: #0b0f14;
+  --color-surface: #121821;
+  --color-elevated: #1a2330;
+  --color-accent: #00d4ff;
+  --color-success: #2ed47a;
+  --color-heading: #f2f6fa;
+  --color-body: #a8b3c2;
+  --color-muted: #5c6b7e;
+  --color-line: rgba(255, 255, 255, 0.06);
+
+  /* Typography */
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-general-sans), var(--font-inter), ui-sans-serif,
+    system-ui, sans-serif;
+  --font-serif: var(--font-instrument-serif), Georgia, "Times New Roman", serif;
+
+  /* Radii */
+  --radius-card: 16px;
+  --radius-btn: 10px;
+
+  /* Shadows / glows */
+  --shadow-glow: 0 0 24px rgba(0, 212, 255, 0.25);
+  --shadow-glow-lg: 0 0 60px rgba(0, 212, 255, 0.18);
+  --shadow-card: 0 12px 40px rgba(0, 0, 0, 0.45);
+
+  /* Motion */
+  --ease-premium: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  border-color: var(--color-line);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--color-bg);
+  color: var(--color-body);
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-display);
+  color: var(--color-heading);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+::selection {
+  background: rgba(0, 212, 255, 0.25);
+  color: var(--color-heading);
+}
+
+/* Serif italic accent word inside headlines */
+.accent-serif {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0;
+  background: linear-gradient(100deg, #00d4ff 0%, #6ae8ff 60%, #2ed47a 130%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  padding-right: 0.06em;
+}
+
+/* Home page — FTW logo mint green (#60d8b8) */
+.home-page {
+  --color-success: #60d8b8;
+}
+
+.home-page .accent-serif {
+  background-image: linear-gradient(100deg, #00d4ff 0%, #6ae8ff 60%, #60d8b8 100%);
+}
+
+/* Hero headline — inline display for Framer Motion fade on h1 */
+.hero-section .accent-serif {
+  display: inline;
+}
+
+/* Eyebrow label */
+.eyebrow {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+}
+
+/* Layered surfaces */
+.glass {
+  background: rgba(26, 35, 48, 0.66);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.card-surface {
+  background: var(--color-elevated);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: var(--radius-card);
+}
+
+.card-hover {
+  transition:
+    transform 0.35s var(--ease-premium),
+    border-color 0.35s var(--ease-premium),
+    box-shadow 0.35s var(--ease-premium);
+}
+
+.card-hover:hover {
+  transform: translateY(-4px);
+  border-color: rgba(0, 212, 255, 0.4);
+  box-shadow:
+    0 16px 48px rgba(0, 0, 0, 0.5),
+    0 0 32px rgba(0, 212, 255, 0.12);
+}
+
+/* Background grid texture */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+.bg-radial-accent {
+  background: radial-gradient(
+    ellipse 60% 50% at 50% 0%,
+    rgba(0, 212, 255, 0.08),
+    transparent 70%
+  );
+}
+
+/* Tabular numerals for metrics */
+.tnum {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Custom scrollbar (subtle, dark) */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-bg);
+}
+::-webkit-scrollbar-thumb {
+  background: #243041;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #2e3d52;
+}
+
+/* Hide scrollbars on horizontal carousels */
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Prose styles for article content */
+.prose-ftw {
+  max-width: 42rem;
+}
+.prose-ftw h2 {
+  font-size: 1.75rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+}
+.prose-ftw h3 {
+  font-size: 1.3rem;
+  margin-top: 2rem;
+  margin-bottom: 0.75rem;
+}
+.prose-ftw p {
+  margin-bottom: 1.25rem;
+}
+.prose-ftw ul,
+.prose-ftw ol {
+  margin: 1.25rem 0;
+  padding-left: 1.5rem;
+}
+.prose-ftw ul {
+  list-style: disc;
+}
+.prose-ftw ol {
+  list-style: decimal;
+}
+.prose-ftw li {
+  margin-bottom: 0.5rem;
+}
+.prose-ftw a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.prose-ftw strong {
+  color: var(--color-heading);
+  font-weight: 600;
+}
+.prose-ftw blockquote {
+  border-left: 3px solid var(--color-accent);
+  padding-left: 1.25rem;
+  margin: 1.75rem 0;
+  font-style: italic;
+  color: var(--color-heading);
+}
+.prose-ftw code {
+  background: var(--color-elevated);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 0.15em 0.4em;
+  font-size: 0.875em;
+}
+
+@keyframes loading-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+@keyframes about-hero-glow {
+  0%,
+  100% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 0.85;
+    transform: scale(1.06);
+  }
+}
+
+.about-hero-glow {
+  animation: about-hero-glow 8s ease-in-out infinite;
+}
+
+/* Reduced motion: kill all animation globally */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
