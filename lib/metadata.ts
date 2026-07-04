@@ -1,12 +1,14 @@
 import type { Metadata } from "next";
 import { siteConfig } from "@/content/site";
 
-/** Default social share image (app/opengraph-image.png). */
+/** Default social share image — served from /public/opengraph-image.png. */
 export const defaultOgImage = {
-  url: "/opengraph-image.png",
+  url: `${siteConfig.url}/opengraph-image.png`,
+  secureUrl: `${siteConfig.url}/opengraph-image.png`,
   width: 1200,
   height: 630,
   alt: `${siteConfig.name} — Strategy. Systems. Growth.`,
+  type: "image/png",
 };
 
 interface BuildMetadataArgs {

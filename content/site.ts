@@ -5,7 +5,7 @@ export const siteConfig = {
   tagline: "Helping Businesses Generate More Leads, Automate Operations, and Scale.",
   description:
     "Custom Websites, SEO, AIO, Advertising, Automation, Mobile Apps, and Software Solutions Designed to Accelerate Growth.",
-  url: "https://www.ftwagency.com",
+  url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.ftwagency.ai",
   email: "hello@ftwagency.com",
   phone: "(951) 555-0142",
   address: {
