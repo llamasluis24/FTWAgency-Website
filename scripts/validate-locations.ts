@@ -9,6 +9,7 @@ import {
   isLocationIndustryComboPublished,
   isLocationServiceComboPublished,
 } from "../lib/publish.ts";
+import { SOCAL_BOUNDS } from "../lib/map/config.ts";
 
 const EXPECTED_CITIES = 10;
 const services = getAllServices();
@@ -51,6 +52,14 @@ for (const location of locations) {
 
   if (!location.slug.endsWith("-ca")) {
     fail(`${location.slug} does not end with -ca`);
+  }
+
+  const { lat, lng } = location.geo;
+  if (lat < SOCAL_BOUNDS.south || lat > SOCAL_BOUNDS.north) {
+    fail(`${location.slug} geo.lat ${lat} outside SoCal bounds`);
+  }
+  if (lng < SOCAL_BOUNDS.west || lng > SOCAL_BOUNDS.east) {
+    fail(`${location.slug} geo.lng ${lng} outside SoCal bounds`);
   }
 
   for (const nearby of location.nearbySlugs) {
@@ -122,6 +131,7 @@ for (const cs of getAllCaseStudies()) {
 }
 
 pass("Article and case study location tags validated");
+pass("Geo coordinates within Southern California bounds");
 
 console.log("\n--- Summary ---");
 console.log(`Errors: ${errors}`);

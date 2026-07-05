@@ -11,6 +11,15 @@ export const defaultOgImage = {
   type: "image/png",
 };
 
+type OgImageConfig = {
+  url: string;
+  secureUrl?: string;
+  width?: number;
+  height?: number;
+  alt?: string;
+  type?: string;
+};
+
 interface BuildMetadataArgs {
   title: string;
   description: string;
@@ -18,12 +27,25 @@ interface BuildMetadataArgs {
   ogType?: "website" | "article";
   ogTitle?: string;
   ogDescription?: string;
+  /** Override default site OG image (e.g. per-city opengraph-image routes). */
+  ogImage?: OgImageConfig;
 }
 
 /**
  * Metadata factory: generates title, description, Open Graph, Twitter, and
  * canonical URL for any page from content entry fields.
  */
+export function buildLocationOgImage(path: string, alt: string): OgImageConfig {
+  return {
+    url: `${siteConfig.url}${path}/opengraph-image`,
+    secureUrl: `${siteConfig.url}${path}/opengraph-image`,
+    width: 1200,
+    height: 630,
+    alt,
+    type: "image/png",
+  };
+}
+
 export function buildMetadata({
   title,
   description,
@@ -31,10 +53,12 @@ export function buildMetadata({
   ogType = "website",
   ogTitle,
   ogDescription,
+  ogImage,
 }: BuildMetadataArgs): Metadata {
   const url = `${siteConfig.url}${path}`;
   const socialTitle = ogTitle ?? title;
   const socialDescription = ogDescription ?? description;
+  const images = [ogImage ?? defaultOgImage];
   return {
     title,
     description,
@@ -46,13 +70,13 @@ export function buildMetadata({
       siteName: siteConfig.name,
       type: ogType,
       locale: "en_US",
-      images: [defaultOgImage],
+      images,
     },
     twitter: {
       card: "summary_large_image",
       title: socialTitle,
       description: socialDescription,
-      images: [defaultOgImage.url],
+      images: [images[0].url],
     },
   };
 }

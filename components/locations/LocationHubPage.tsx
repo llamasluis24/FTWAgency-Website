@@ -30,6 +30,9 @@ import {
   isLocationServiceComboPublished,
 } from "@/lib/publish";
 import { LocationFactBlock } from "@/components/locations/LocationFactBlock";
+import { LocationsMapSection } from "@/components/locations/LocationsMapSection";
+import { getPublishedLocations } from "@/lib/publish";
+import { locationsToMapPins } from "@/lib/map/pins";
 import type { Location } from "@/lib/schemas";
 
 export function LocationHubPage({ location }: { location: Location }) {
@@ -43,6 +46,7 @@ export function LocationHubPage({ location }: { location: Location }) {
   const projects = getProjectsByLocation(location.slug);
   const articles = getArticlesByLocation(location.slug);
   const nearby = getNearbyLocations(location.slug);
+  const mapPins = locationsToMapPins(getPublishedLocations());
 
   return (
     <>
@@ -82,6 +86,15 @@ export function LocationHubPage({ location }: { location: Location }) {
           </div>
         </Container>
       </Section>
+
+      <LocationsMapSection
+        pins={mapPins}
+        mode="city"
+        focusSlug={location.slug}
+        eyebrow="Service Area"
+        title={`Also Serving *Nearby* Markets`}
+        lede={`Explore ${location.city} on the map — plus the neighboring markets where we deploy the same growth systems.`}
+      />
 
       {location.stats.length > 0 ? (
         <Section className="!py-14" surface>

@@ -4,18 +4,25 @@ import { LocationCard } from "@/components/cards/LocationCard";
 import { CTASection } from "@/components/blocks/CTASection";
 import { Section, Container } from "@/components/layout/Section";
 import { RevealItem, RevealStagger } from "@/components/ui/Reveal";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, buildLocationOgImage } from "@/lib/metadata";
 import { getPublishedLocations } from "@/lib/publish";
+import { locationsToMapPins } from "@/lib/map/pins";
+import { LocationsMapSection } from "@/components/locations/LocationsMapSection";
 
 export const metadata: Metadata = buildMetadata({
   title: "Locations | FTW Agency",
   description:
     "FTW Agency builds growth systems for businesses across Southern California and nationwide — local market knowledge backed by scalable marketing and software systems.",
   path: "/locations",
+  ogImage: buildLocationOgImage(
+    "/locations",
+    "FTW Agency — Southern California growth markets",
+  ),
 });
 
 export default function LocationsPage() {
   const locations = getPublishedLocations();
+  const mapPins = locationsToMapPins(locations);
 
   return (
     <>
@@ -25,6 +32,7 @@ export default function LocationsPage() {
         sub="We combine on-the-ground market understanding with growth infrastructure that works anywhere. Explore the markets we serve."
         crumbs={[{ name: "Locations", path: "/locations" }]}
       />
+      <LocationsMapSection pins={mapPins} />
       <Section>
         <Container>
           <RevealStagger className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

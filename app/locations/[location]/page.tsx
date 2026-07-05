@@ -2,10 +2,11 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LocationHubPage } from "@/components/locations/LocationHubPage";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { buildMetadata } from "@/lib/metadata";
+import { buildMetadata, buildLocationOgImage } from "@/lib/metadata";
 import { buildLocationHubMetadata } from "@/lib/metadata-local";
 import { locationHubGraph } from "@/lib/jsonld-graph";
 import { getLocation } from "@/lib/content";
+import { siteConfig } from "@/content/site";
 import { getPublishedLocations } from "@/lib/publish";
 
 interface Props {
@@ -25,6 +26,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: location.meta.title || meta.title,
     description: location.meta.description || meta.description,
     path: `/locations/${location.slug}`,
+    ogImage: buildLocationOgImage(
+      `/locations/${location.slug}`,
+      `${location.city} growth systems — ${siteConfig.name}`,
+    ),
   });
 }
 
