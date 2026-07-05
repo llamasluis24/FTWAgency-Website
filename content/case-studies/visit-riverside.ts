@@ -91,6 +91,7 @@ export const visitRiverside: CaseStudy = {
     industry: "professional-services",
   },
   featured: true,
+  locations: ["riverside-ca"],
 };
 
 export const visitRiversideHero = {

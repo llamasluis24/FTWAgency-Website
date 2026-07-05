@@ -3,9 +3,9 @@ import Image from "next/image";
 import { siteConfig } from "@/content/site";
 import {
   getAllIndustries,
-  getAllLocations,
   getAllServices,
 } from "@/lib/content";
+import { getPublishedLocations } from "@/lib/publish";
 
 /**
  * Footer doubles as the sitewide internal-linking engine: every service,
@@ -14,7 +14,7 @@ import {
 export function Footer() {
   const services = getAllServices();
   const industries = getAllIndustries();
-  const locations = getAllLocations();
+  const locations = getPublishedLocations();
 
   const columns: { title: string; links: { label: string; href: string }[] }[] = [
     {

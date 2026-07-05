@@ -30,6 +30,7 @@ const PlatformShowcase = dynamic(
 import {
   RelatedCaseStudies,
   RelatedIndustries,
+  RelatedLocations,
   RelatedServices,
 } from "@/components/blocks/Related";
 import { SectionHeading } from "@/components/ui/SectionHeading";
@@ -46,6 +47,7 @@ import {
   getRelatedServices,
   getService,
 } from "@/lib/content";
+import { getTopPublishedLocations } from "@/lib/linking";
 import { getPlatformShowcase } from "@/content/platform-showcases";
 
 interface Props {
@@ -86,6 +88,7 @@ export default async function ServicePage({ params }: Props) {
   const related = getRelatedServices(service);
   const caseStudies = getCaseStudiesByService(service.slug).slice(0, 3);
   const relatedIndustries = getRelatedIndustriesForService(service.slug);
+  const topLocations = getTopPublishedLocations(4);
   const isAgentPage = Boolean(service.useCases?.length);
   const showcase = getPlatformShowcase(service.slug);
 
@@ -209,6 +212,12 @@ export default async function ServicePage({ params }: Props) {
       <RelatedServices services={related} surface={!isAgentPage} />
 
       <RelatedCaseStudies caseStudies={caseStudies} />
+
+      <RelatedLocations
+        locations={topLocations}
+        title="Markets We *Serve*"
+        surface
+      />
 
       <RelatedIndustries
         industries={relatedIndustries}

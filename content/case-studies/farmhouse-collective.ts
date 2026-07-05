@@ -76,6 +76,7 @@ export const farmhouseCollective: CaseStudy = {
     industry: "restaurants-hospitality",
   },
   featured: true,
+  locations: ["riverside-ca"],
 };
 
 export const farmhouseHero = {

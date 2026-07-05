@@ -5,7 +5,7 @@ import { CTASection } from "@/components/blocks/CTASection";
 import { Section, Container } from "@/components/layout/Section";
 import { RevealItem, RevealStagger } from "@/components/ui/Reveal";
 import { buildMetadata } from "@/lib/metadata";
-import { getAllLocations } from "@/lib/content";
+import { getPublishedLocations } from "@/lib/publish";
 
 export const metadata: Metadata = buildMetadata({
   title: "Locations | FTW Agency",
@@ -15,7 +15,7 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function LocationsPage() {
-  const locations = getAllLocations();
+  const locations = getPublishedLocations();
 
   return (
     <>

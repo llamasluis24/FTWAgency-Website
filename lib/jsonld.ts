@@ -25,7 +25,7 @@ export function organizationSchema(): JsonLdObject {
 }
 
 export function localBusinessSchema(location: Location): JsonLdObject {
-  return {
+  const schema: JsonLdObject = {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
     name: `${siteConfig.name} — ${location.city}`,
@@ -44,6 +44,16 @@ export function localBusinessSchema(location: Location): JsonLdObject {
       addressCountry: "US",
     },
   };
+
+  if (location.geo) {
+    schema.geo = {
+      "@type": "GeoCoordinates",
+      latitude: location.geo.lat,
+      longitude: location.geo.lng,
+    };
+  }
+
+  return schema;
 }
 
 export function serviceSchema(

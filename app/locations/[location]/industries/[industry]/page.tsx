@@ -16,11 +16,14 @@ import { getIndustryHeroImage } from "@/content/industry-hero-images";
 import { locationIndustryCopy } from "@/lib/combo";
 import {
   getAllIndustries,
-  getAllLocations,
-  getIndustry,
   getLocation,
+  getIndustry,
   getService,
 } from "@/lib/content";
+import {
+  getPublishedLocations,
+  isLocationIndustryComboPublished,
+} from "@/lib/publish";
 
 interface Props {
   params: Promise<{ location: string; industry: string }>;
@@ -28,11 +31,15 @@ interface Props {
 
 /** Location + Industry combo pages — programmatic SEO surface. */
 export function generateStaticParams() {
-  return getAllLocations().flatMap((location) =>
-    getAllIndustries().map((industry) => ({
-      location: location.slug,
-      industry: industry.slug,
-    })),
+  return getPublishedLocations().flatMap((location) =>
+    getAllIndustries()
+      .filter((industry) =>
+        isLocationIndustryComboPublished(location, industry.slug),
+      )
+      .map((industry) => ({
+        location: location.slug,
+        industry: industry.slug,
+      })),
   );
 }
 

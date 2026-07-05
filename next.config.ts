@@ -1,9 +1,25 @@
 import type { NextConfig } from "next";
 
+const LEGACY_LOCATION_SLUGS = ["riverside", "corona", "irvine"] as const;
+
+const legacyLocationRedirects = LEGACY_LOCATION_SLUGS.flatMap((slug) => [
+  {
+    source: `/locations/${slug}`,
+    destination: `/locations/${slug}-ca`,
+    permanent: true,
+  },
+  {
+    source: `/locations/${slug}/:path*`,
+    destination: `/locations/${slug}-ca/:path*`,
+    permanent: true,
+  },
+]);
+
 const nextConfig: NextConfig = {
   outputFileTracingRoot: __dirname,
   async redirects() {
     return [
+      ...legacyLocationRedirects,
       {
         source: "/services/google-ads",
         destination: "/services/paid-ads-management",

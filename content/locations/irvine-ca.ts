@@ -1,10 +1,16 @@
 import type { Location } from "@/lib/schemas";
 
-export const irvine: Location = {
-  slug: "irvine",
+export const irvineCa: Location = {
+  slug: "irvine-ca",
   city: "Irvine",
   state: "California",
   stateAbbr: "CA",
+  county: "Orange County",
+  region: "Southern California",
+  metro: "Los Angeles-Long Beach-Anaheim",
+  geo: { lat: 33.6846, lng: -117.8265 },
+  nearbySlugs: ["anaheim-ca", "santa-ana-ca", "los-angeles-ca"],
+  publish: { status: "full", publishedAt: "2026-07-05", lastModified: "2026-07-05" },
   heroHeadline: "Growth Systems for *Irvine* Businesses.",
   heroSub:
     "Irvine moves fast — your growth systems should too. We help Irvine businesses and startups build the visibility, automation, and software that turn momentum into market share.",
@@ -27,6 +33,28 @@ export const irvine: Location = {
         "From SaaS to professional services, Irvine companies need growth systems that scale without adding headcount.",
     },
   ],
+  stats: [
+    { value: 310, suffix: "K+", label: "City population" },
+    { value: 92, suffix: "%", label: "Households with broadband" },
+    { value: 3, suffix: "×", label: "Avg. competitor comparison searches" },
+  ],
+  whyLocal: [
+    {
+      title: "Built for discerning buyers",
+      description:
+        "Irvine customers research deeply. We combine AIO visibility, premium web experiences, and reputation systems that match their expectations.",
+    },
+    {
+      title: "Startup-ready infrastructure",
+      description:
+        "From first leads to scaled operations, we deploy automation and software that grows with Irvine companies — not against them.",
+    },
+    {
+      title: "Orange County connectivity",
+      description:
+        "Systems built for Irvine extend naturally to Newport Beach, Tustin, and the broader OC corridor.",
+    },
+  ],
   serviceAreas: [
     "Irvine Spectrum",
     "Turtle Rock",
@@ -37,6 +65,9 @@ export const irvine: Location = {
     "Newport Beach",
     "Costa Mesa",
   ],
+  featuredCaseStudies: [],
+  featuredProjects: [],
+  featuredArticles: ["aio-explained", "growth-systems-vs-marketing"],
   faqs: [
     {
       question: "Do you work with Irvine startups?",

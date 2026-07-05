@@ -3,9 +3,9 @@ import {
   getAllArticles,
   getAllCaseStudies,
   getAllIndustries,
-  getAllLocations,
   getAllServices,
 } from "@/lib/content";
+import { getPublishedLocations } from "@/lib/publish";
 import type { NavData, PaletteItem } from "@/components/layout/nav-data";
 
 function navDescription(excerpt: string, maxLength = 54): string {
@@ -19,7 +19,7 @@ function navDescription(excerpt: string, maxLength = 54): string {
 export const getSiteNav = cache((): NavData => {
   const services = getAllServices();
   const industries = getAllIndustries();
-  const locations = getAllLocations();
+  const locations = getPublishedLocations();
 
   return {
     services: services.map((s) => ({
@@ -71,7 +71,7 @@ export const getSiteNav = cache((): NavData => {
 export const getSitePaletteItems = cache((): PaletteItem[] => {
   const services = getAllServices();
   const industries = getAllIndustries();
-  const locations = getAllLocations();
+  const locations = getPublishedLocations();
 
   return [
     { label: "Home", href: "/", group: "Pages" },

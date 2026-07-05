@@ -158,16 +158,41 @@ export const IndustrySchema = z.object({
 /* Locations                                                           */
 /* ------------------------------------------------------------------ */
 
+export const LocationGeoSchema = z.object({
+  lat: z.number(),
+  lng: z.number(),
+});
+
+export const LocationPublishSchema = z.object({
+  status: z.enum(["draft", "hub", "tier1", "full"]),
+  publishedAt: z.string().optional(),
+  lastModified: z.string().optional(),
+});
+
 export const LocationSchema = z.object({
   slug: z.string(),
   city: z.string(),
   state: z.string(),
   stateAbbr: z.string(),
+  county: z.string(),
+  region: z.string(),
+  metro: z.string(),
+  geo: LocationGeoSchema,
+  nearbySlugs: z.array(z.string()),
+  publish: LocationPublishSchema,
   heroHeadline: z.string(),
   heroSub: z.string(),
   intro: z.string(),
   marketPoints: z.array(PointSchema),
+  stats: z.array(StatSchema),
+  whyLocal: z.array(PointSchema),
   serviceAreas: z.array(z.string()),
+  featuredCaseStudies: z.array(z.string()).default([]),
+  featuredProjects: z.array(z.string()).default([]),
+  featuredArticles: z.array(z.string()).default([]),
+  featuredIndustries: z.array(z.string()).optional(),
+  featuredServices: z.array(z.string()).optional(),
+  ogImage: z.string().optional(),
   faqs: z.array(FaqSchema),
   meta: MetaSchema,
 });
@@ -218,6 +243,7 @@ export const CaseStudySchema = z.object({
   }),
   testimonial: TestimonialSchema,
   featured: z.boolean().default(false),
+  locations: z.array(z.string()).optional(),
 });
 
 /* ------------------------------------------------------------------ */

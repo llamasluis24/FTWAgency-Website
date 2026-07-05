@@ -13,12 +13,16 @@ import { localBusinessSchema, serviceSchema } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/metadata";
 import { locationServiceCopy } from "@/lib/combo";
 import {
-  getAllLocations,
+  getAllIndustries,
   getAllServices,
   getLocation,
   getRelatedServices,
   getService,
 } from "@/lib/content";
+import {
+  getPublishedLocations,
+  isLocationServiceComboPublished,
+} from "@/lib/publish";
 
 interface Props {
   params: Promise<{ location: string; service: string }>;
@@ -26,11 +30,13 @@ interface Props {
 
 /** Location + Service combo pages — programmatic SEO surface. */
 export function generateStaticParams() {
-  return getAllLocations().flatMap((location) =>
-    getAllServices().map((service) => ({
-      location: location.slug,
-      service: service.slug,
-    })),
+  return getPublishedLocations().flatMap((location) =>
+    getAllServices()
+      .filter((service) => isLocationServiceComboPublished(location, service.slug))
+      .map((service) => ({
+        location: location.slug,
+        service: service.slug,
+      })),
   );
 }
 

@@ -11,7 +11,8 @@
     "build": "next build",
     "build:clean": "rm -rf .next && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "validate:locations": "npx tsx scripts/validate-locations.ts"
   },
   "dependencies": {
     "framer-motion": "^12.40.0",

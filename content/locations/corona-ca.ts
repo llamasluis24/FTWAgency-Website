@@ -1,10 +1,16 @@
 import type { Location } from "@/lib/schemas";
 
-export const corona: Location = {
-  slug: "corona",
+export const coronaCa: Location = {
+  slug: "corona-ca",
   city: "Corona",
   state: "California",
   stateAbbr: "CA",
+  county: "Riverside County",
+  region: "Southern California",
+  metro: "Riverside-San Bernardino-Ontario",
+  geo: { lat: 33.8753, lng: -117.5664 },
+  nearbySlugs: ["riverside-ca", "ontario-ca", "rancho-cucamonga-ca"],
+  publish: { status: "full", publishedAt: "2026-07-05", lastModified: "2026-07-05" },
   heroHeadline: "Growth Systems for *Corona* Businesses.",
   heroSub:
     "In a market this competitive, good enough isn't. We help Corona businesses win visibility, respond faster than competitors, and scale on systems built to last.",
@@ -24,7 +30,29 @@ export const corona: Location = {
     {
       title: "Regional reach",
       description:
-        "Corona's location means systems that work here can scale across Riverside, Anaheim Hills, and the wider metro — one winning playbook, many suburbs.",
+        "Corona's location means systems that work here can scale across the Inland Empire and OC — one winning playbook, many suburbs.",
+    },
+  ],
+  stats: [
+    { value: 170, suffix: "K+", label: "City population" },
+    { value: 72, suffix: "%", label: "Buyers who read reviews first" },
+    { value: 11, suffix: "", label: "Integrated growth services" },
+  ],
+  whyLocal: [
+    {
+      title: "Corridor market expertise",
+      description:
+        "We know how Corona buyers compare options across the IE and Orange County — and how to win when competition spans multiple cities.",
+    },
+    {
+      title: "Neighborhood-level targeting",
+      description:
+        "From Eagle Glen to Eastvale, we build visibility for the specific areas you serve — not generic regional pages.",
+    },
+    {
+      title: "Speed-to-lead systems",
+      description:
+        "Corona rewards fast response. We wire automation that captures, qualifies, and routes leads before competitors call back.",
     },
   ],
   serviceAreas: [
@@ -37,6 +65,9 @@ export const corona: Location = {
     "Chino Hills",
     "Anaheim Hills",
   ],
+  featuredCaseStudies: [],
+  featuredProjects: [],
+  featuredArticles: ["local-seo-guide-2026", "website-conversion-checklist"],
   faqs: [
     {
       question: "What makes marketing in Corona different?",
@@ -46,7 +77,7 @@ export const corona: Location = {
     {
       question: "Can you target specific Corona neighborhoods?",
       answer:
-        "Yes — our programmatic location architecture builds dedicated visibility for each area you serve, from Eagle Glen to Eastvale, without duplicating effort.",
+        "Yes — our location architecture builds dedicated visibility for each area you serve, from Eagle Glen to Eastvale, without duplicating effort.",
     },
   ],
   meta: {

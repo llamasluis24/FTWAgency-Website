@@ -5,17 +5,22 @@ import {
   getAllArticles,
   getAllCaseStudies,
   getAllIndustries,
-  getAllLocations,
   getAllServices,
   getArticleCategories,
 } from "@/lib/content";
+import {
+  getPublishedLocations,
+  isLocationIndustryComboPublished,
+  isLocationHubPublished,
+  isLocationServiceComboPublished,
+} from "@/lib/publish";
 
 /** Dynamic sitemap: derives every URL from the content collections. */
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
   const services = getAllServices();
   const industries = getAllIndustries();
-  const locations = getAllLocations();
+  const locations = getPublishedLocations();
 
   const staticPaths = [
     "",
@@ -45,19 +50,22 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   services.forEach((s) => add(`/services/${s.slug}`, 0.9));
   industries.forEach((i) => add(`/industries/${i.slug}`, 0.8));
-  locations.forEach((l) => add(`/locations/${l.slug}`, 0.8));
 
-  // Programmatic combo pages
+  locations.filter(isLocationHubPublished).forEach((l) => add(`/locations/${l.slug}`, 0.8));
+
   industries.forEach((industry) =>
     industry.serviceStack.forEach((item) =>
       add(`/industries/${industry.slug}/${item.service}`, 0.7),
     ),
   );
+
   locations.forEach((location) => {
-    services.forEach((s) => add(`/locations/${location.slug}/${s.slug}`, 0.7));
-    industries.forEach((i) =>
-      add(`/locations/${location.slug}/industries/${i.slug}`, 0.7),
-    );
+    services
+      .filter((s) => isLocationServiceComboPublished(location, s.slug))
+      .forEach((s) => add(`/locations/${location.slug}/${s.slug}`, 0.7));
+    industries
+      .filter((i) => isLocationIndustryComboPublished(location, i.slug))
+      .forEach((i) => add(`/locations/${location.slug}/industries/${i.slug}`, 0.7));
   });
 
   getAllCaseStudies().forEach((c) => add(`/case-studies/${c.slug}`, 0.6));

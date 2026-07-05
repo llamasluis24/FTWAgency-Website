@@ -1,4 +1,8 @@
 import type { Faq, Industry, Location, Service } from "./schemas";
+import {
+  buildLocationIndustryMetadata,
+  buildLocationServiceMetadata,
+} from "./metadata-local";
 
 /**
  * Programmatic SEO copy-merge: generates page-level copy for combo pages
@@ -28,10 +32,7 @@ export function locationServiceCopy(service: Service, location: Location) {
     sub: `${service.excerpt} Delivered with on-the-ground knowledge of the ${location.city} market.`,
     intro: location.intro,
     faqs: mergeFaqs(service.faqs, location.faqs),
-    meta: {
-      title: `${service.shortTitle} in ${location.city}, ${location.stateAbbr} | FTW Agency`,
-      description: `${service.title} for ${location.city} businesses. ${service.excerpt}`,
-    },
+    meta: buildLocationServiceMetadata(service, location),
   };
 }
 
@@ -41,10 +42,7 @@ export function locationIndustryCopy(industry: Industry, location: Location) {
     sub: `${industry.heroSub} Tuned for the ${location.city} market.`,
     intro: location.intro,
     faqs: mergeFaqs(industry.faqs, location.faqs),
-    meta: {
-      title: `${industry.title} Marketing in ${location.city}, ${location.stateAbbr} | FTW Agency`,
-      description: `Growth systems for ${industry.title.toLowerCase()} businesses in ${location.city}: ${industry.excerpt.charAt(0).toLowerCase()}${industry.excerpt.slice(1)}`,
-    },
+    meta: buildLocationIndustryMetadata(industry, location),
   };
 }
 
