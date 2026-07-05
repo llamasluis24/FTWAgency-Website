@@ -8,11 +8,17 @@ export interface Crumb {
   path: string;
 }
 
-export function Breadcrumbs({ items }: { items: Crumb[] }) {
+export function Breadcrumbs({
+  items,
+  includeSchema = true,
+}: {
+  items: Crumb[];
+  includeSchema?: boolean;
+}) {
   const all: Crumb[] = [{ name: "Home", path: "/" }, ...items];
   return (
     <nav aria-label="Breadcrumb" className="mb-8">
-      <JsonLd data={[breadcrumbSchema(all)]} />
+      {includeSchema ? <JsonLd data={[breadcrumbSchema(all)]} /> : null}
       <ol className="flex flex-wrap items-center gap-1.5 text-xs text-muted">
         {all.map((crumb, i) => {
           const last = i === all.length - 1;

@@ -29,6 +29,7 @@ import {
   isLocationIndustryComboPublished,
   isLocationServiceComboPublished,
 } from "@/lib/publish";
+import { LocationFactBlock } from "@/components/locations/LocationFactBlock";
 import type { Location } from "@/lib/schemas";
 
 export function LocationHubPage({ location }: { location: Location }) {
@@ -49,6 +50,7 @@ export function LocationHubPage({ location }: { location: Location }) {
         eyebrow={`${location.city}, ${location.state}`}
         headline={location.heroHeadline}
         sub={location.heroSub}
+        breadcrumbSchema={false}
         crumbs={[
           { name: "Locations", path: "/locations" },
           { name: location.city, path: `/locations/${location.slug}` },
@@ -238,7 +240,9 @@ export function LocationHubPage({ location }: { location: Location }) {
         />
       ) : null}
 
-      <FAQSection faqs={location.faqs} />
+      <LocationFactBlock location={location} />
+
+      <FAQSection faqs={location.faqs} includeSchema={false} />
 
       <CTASection
         headline={`Ready to Grow in *${location.city}*?`}

@@ -18,6 +18,8 @@ import {
   getIndustry,
   getService,
 } from "@/lib/content";
+import { getLocationsForCaseStudy } from "@/lib/linking";
+import { LocationMarketsStrip } from "@/components/locations/LocationMarketsStrip";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -53,6 +55,7 @@ export default async function CaseStudyPage({ params }: Props) {
   if (!cs) notFound();
 
   const industry = getIndustry(cs.industry);
+  const marketSlugs = getLocationsForCaseStudy(cs).map((l) => l.slug);
 
   return (
     <>
@@ -168,6 +171,14 @@ export default async function CaseStudyPage({ params }: Props) {
           </Reveal>
         </Container>
       </Section>
+
+      {marketSlugs.length > 0 ? (
+        <LocationMarketsStrip
+          locationSlugs={marketSlugs}
+          title="Growth Systems in *This Market*"
+          surface
+        />
+      ) : null}
 
       <CTASection
         headline="Ready for Results Like *These*?"

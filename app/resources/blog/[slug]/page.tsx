@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 import { Badge } from "@/components/ui/Badge";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
-import { RelatedArticles } from "@/components/blocks/Related";
+import { RelatedArticles, RelatedLocations } from "@/components/blocks/Related";
 import { CTASection } from "@/components/blocks/CTASection";
 import { Container } from "@/components/layout/Section";
 import { Reveal } from "@/components/ui/Reveal";
@@ -13,6 +13,7 @@ import { articleSchema } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/metadata";
 import { formatDate } from "@/lib/utils";
 import { categorySlug, getAllArticles, getArticle } from "@/lib/content";
+import { getLocationsForArticle } from "@/lib/linking";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -51,6 +52,8 @@ export default async function ArticlePage({ params }: Props) {
       return bScore - aScore;
     })
     .slice(0, 3);
+
+  const marketLocations = getLocationsForArticle(article);
 
   return (
     <>
@@ -107,7 +110,15 @@ export default async function ArticlePage({ params }: Props) {
         </div>
       </Container>
 
-      <RelatedArticles articles={related} surface />
+      {marketLocations.length > 0 ? (
+        <RelatedLocations
+          locations={marketLocations}
+          title="Related *Markets*"
+          surface
+        />
+      ) : null}
+
+      <RelatedArticles articles={related} />
 
       <CTASection
         headline="Want This *Implemented*, Not Just Explained?"

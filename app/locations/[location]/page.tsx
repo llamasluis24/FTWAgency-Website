@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { LocationHubPage } from "@/components/locations/LocationHubPage";
 import { JsonLd } from "@/components/seo/JsonLd";
-import { localBusinessSchema } from "@/lib/jsonld";
 import { buildMetadata } from "@/lib/metadata";
 import { buildLocationHubMetadata } from "@/lib/metadata-local";
+import { locationHubGraph } from "@/lib/jsonld-graph";
 import { getLocation } from "@/lib/content";
 import { getPublishedLocations } from "@/lib/publish";
 
@@ -33,9 +33,14 @@ export default async function LocationPage({ params }: Props) {
   const location = getLocation(slug);
   if (!location) notFound();
 
+  const crumbs = [
+    { name: "Locations", path: "/locations" },
+    { name: location.city, path: `/locations/${location.slug}` },
+  ];
+
   return (
     <>
-      <JsonLd data={[localBusinessSchema(location)]} />
+      <JsonLd data={[locationHubGraph(location, crumbs, location.faqs)]} />
       <LocationHubPage location={location} />
     </>
   );

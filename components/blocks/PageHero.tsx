@@ -36,6 +36,8 @@ interface PageHeroProps {
   surface?: boolean;
   /** "none" = no grid. "blueprint" = cyan 40px grid. "blueprint-ftw" = FTW green grid. */
   grid?: "default" | "none" | "blueprint" | "blueprint-ftw";
+  /** When false, breadcrumb JSON-LD is omitted (e.g. when a page-level @graph includes it). */
+  breadcrumbSchema?: boolean;
   children?: React.ReactNode;
 }
 
@@ -52,6 +54,7 @@ export function PageHero({
   backgroundImage,
   surface = false,
   grid = "default",
+  breadcrumbSchema = true,
   children,
 }: PageHeroProps) {
   const isBrandHero = backgroundImage?.variant === "brand";
@@ -105,7 +108,7 @@ export function PageHero({
       ) : null}
       {backgroundVisual}
       <Container className="relative z-10">
-        {crumbs && <Breadcrumbs items={crumbs} />}
+        {crumbs && <Breadcrumbs items={crumbs} includeSchema={breadcrumbSchema} />}
         <div className={visual ? "lg:grid lg:grid-cols-2 lg:items-center lg:gap-12" : undefined}>
           <div className="relative z-10 max-w-3xl">
             {eyebrow && <p className="eyebrow mb-4">{eyebrow}</p>}

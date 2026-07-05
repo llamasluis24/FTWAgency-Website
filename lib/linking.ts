@@ -7,6 +7,24 @@ import { getAllArticles } from "./content";
 import type { Article, CaseStudy, Location, Project } from "./schemas";
 import { getPublishedLocations } from "./publish";
 
+export function getLocationsBySlugs(slugs: string[]): Location[] {
+  return slugs
+    .map((slug) => getLocation(slug))
+    .filter((l): l is Location => Boolean(l));
+}
+
+export function getLocationsForCaseStudy(caseStudy: CaseStudy): Location[] {
+  if (!caseStudy.locations?.length) return [];
+  return getLocationsBySlugs(caseStudy.locations);
+}
+
+export function getLocationsForArticle(article: Article): Location[] {
+  if (article.locations?.length) {
+    return getLocationsBySlugs(article.locations);
+  }
+  return [];
+}
+
 export function getNearbyLocations(slug: string): Location[] {
   const location = getLocation(slug);
   if (!location) return [];
@@ -50,7 +68,7 @@ export function getArticlesByLocation(slug: string, limit = 3): Article[] {
 
   const tagged = getAllArticles().filter(
     (a) =>
-      a.tags.some((t) => t.includes("local") || t.includes(slug.replace("-ca", ""))) &&
+      a.locations?.includes(slug) &&
       !featured.some((f) => f.slug === a.slug),
   );
 

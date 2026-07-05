@@ -3,7 +3,8 @@
  * Run: npm run validate:locations
  */
 import { locations } from "../content/locations/index.ts";
-import { getAllIndustries, getAllServices } from "../lib/collections.ts";
+import { getAllArticles } from "../lib/content.ts";
+import { getAllCaseStudies, getAllIndustries, getAllServices } from "../lib/collections.ts";
 import {
   isLocationIndustryComboPublished,
   isLocationServiceComboPublished,
@@ -103,6 +104,24 @@ if (totalCombos !== 210) {
 }
 
 pass(`${locations.length} city hub URLs + 1 /locations hub = ${locations.length + 1} hub pages`);
+
+for (const article of getAllArticles()) {
+  for (const slug of article.locations ?? []) {
+    if (!slugSet.has(slug)) {
+      fail(`Article "${article.slug}" references unknown location: ${slug}`);
+    }
+  }
+}
+
+for (const cs of getAllCaseStudies()) {
+  for (const slug of cs.locations ?? []) {
+    if (!slugSet.has(slug)) {
+      fail(`Case study "${cs.slug}" references unknown location: ${slug}`);
+    }
+  }
+}
+
+pass("Article and case study location tags validated");
 
 console.log("\n--- Summary ---");
 console.log(`Errors: ${errors}`);

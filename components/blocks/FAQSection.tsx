@@ -10,15 +10,17 @@ export function FAQSection({
   faqs,
   title = "Frequently Asked *Questions*",
   eyebrow = "FAQ",
+  includeSchema = true,
 }: {
   faqs: Faq[];
   title?: string;
   eyebrow?: string;
+  includeSchema?: boolean;
 }) {
   if (faqs.length === 0) return null;
   return (
     <Section>
-      <JsonLd data={[faqSchema(faqs)]} />
+      {includeSchema ? <JsonLd data={[faqSchema(faqs)]} /> : null}
       <Container className="max-w-3xl">
         <SectionHeading eyebrow={eyebrow} title={title} />
         <Reveal>

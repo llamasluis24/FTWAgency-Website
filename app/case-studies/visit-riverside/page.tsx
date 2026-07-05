@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { VisitRiversideCaseStudy } from "@/components/case-studies/visit-riverside/VisitRiversideCaseStudy";
+import { LocationMarketsStrip } from "@/components/locations/LocationMarketsStrip";
 import { visitRiverside } from "@/content/case-studies/visit-riverside";
 import { buildMetadata } from "@/lib/metadata";
 
@@ -11,5 +12,14 @@ export const metadata: Metadata = buildMetadata({
 });
 
 export default function VisitRiversidePage() {
-  return <VisitRiversideCaseStudy />;
+  return (
+    <>
+      <VisitRiversideCaseStudy />
+      <LocationMarketsStrip
+        locationSlugs={visitRiverside.locations ?? []}
+        title="Growth Systems in *This Market*"
+        surface
+      />
+    </>
+  );
 }

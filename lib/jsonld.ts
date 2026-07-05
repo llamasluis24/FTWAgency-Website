@@ -7,6 +7,7 @@ export function organizationSchema(): JsonLdObject {
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": `${siteConfig.url}/#organization`,
     name: siteConfig.name,
     url: siteConfig.url,
     email: siteConfig.email,

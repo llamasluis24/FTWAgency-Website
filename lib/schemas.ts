@@ -261,6 +261,7 @@ export const ArticleFrontmatterSchema = z.object({
   author: z.object({ name: z.string(), role: z.string() }),
   publishedAt: z.string(),
   excerpt: z.string(),
+  locations: z.array(z.string()).optional(),
 });
 
 export const ArticleSchema = ArticleFrontmatterSchema.extend({
