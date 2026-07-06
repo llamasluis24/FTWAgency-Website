@@ -1,5 +1,6 @@
 import type { Location } from "./schemas";
-import { getAllLocations } from "./collections";
+import { getAllIndustries, getAllLocations, getAllServices } from "./collections";
+import type { PublishTierSummary } from "./publish-meta";
 
 /** Tier-1 service combos when publish.status === "tier1". */
 export const TIER1_SERVICE_SLUGS = [
@@ -46,4 +47,28 @@ export function isLocationIndustryComboPublished(
 
 export function getPublishedLocations(): Location[] {
   return getAllLocations().filter(isLocationHubPublished);
+}
+
+export function getPublishTierSummaries(): PublishTierSummary[] {
+  const services = getAllServices();
+  const industries = getAllIndustries();
+
+  return getAllLocations().map((location) => {
+    const serviceCombos = services.filter((service) =>
+      isLocationServiceComboPublished(location, service.slug),
+    ).length;
+    const industryCombos = industries.filter((industry) =>
+      isLocationIndustryComboPublished(location, industry.slug),
+    ).length;
+
+    return {
+      slug: location.slug,
+      city: location.city,
+      status: location.publish.status,
+      hubLive: isLocationHubPublished(location),
+      serviceCombos,
+      industryCombos,
+      totalCombos: serviceCombos + industryCombos,
+    };
+  });
 }

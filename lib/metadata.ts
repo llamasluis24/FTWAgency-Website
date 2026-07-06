@@ -29,6 +29,7 @@ interface BuildMetadataArgs {
   ogDescription?: string;
   /** Override default site OG image (e.g. per-city opengraph-image routes). */
   ogImage?: OgImageConfig;
+  robots?: Metadata["robots"];
 }
 
 /**
@@ -54,6 +55,7 @@ export function buildMetadata({
   ogTitle,
   ogDescription,
   ogImage,
+  robots,
 }: BuildMetadataArgs): Metadata {
   const url = `${siteConfig.url}${path}`;
   const socialTitle = ogTitle ?? title;
@@ -63,6 +65,7 @@ export function buildMetadata({
     title,
     description,
     alternates: { canonical: url },
+    ...(robots ? { robots } : {}),
     openGraph: {
       title: socialTitle,
       description: socialDescription,

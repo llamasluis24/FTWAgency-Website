@@ -10,6 +10,7 @@ import {
   isLocationServiceComboPublished,
 } from "../lib/publish.ts";
 import { SOCAL_BOUNDS } from "../lib/map/config.ts";
+import { getAllSitemapEntries, getSitemapSegmentCounts } from "../lib/sitemap-urls.ts";
 
 const EXPECTED_CITIES = 10;
 const services = getAllServices();
@@ -132,6 +133,17 @@ for (const cs of getAllCaseStudies()) {
 
 pass("Article and case study location tags validated");
 pass("Geo coordinates within Southern California bounds");
+
+const segmentCounts = getSitemapSegmentCounts();
+const totalSitemapUrls = getAllSitemapEntries().length;
+
+pass(
+  `Sitemap segments: core=${segmentCounts.core}, locations=${segmentCounts.locations}, content=${segmentCounts.content} (${totalSitemapUrls} total)`,
+);
+
+if (segmentCounts.locations < 220) {
+  fail(`Expected at least 220 location sitemap URLs (hubs + combos), got ${segmentCounts.locations}`);
+}
 
 console.log("\n--- Summary ---");
 console.log(`Errors: ${errors}`);

@@ -30,6 +30,7 @@ import {
   isLocationServiceComboPublished,
 } from "@/lib/publish";
 import { LocationFactBlock } from "@/components/locations/LocationFactBlock";
+import { LocationLastUpdated } from "@/components/locations/LocationLastUpdated";
 import { LocationsMapSection } from "@/components/locations/LocationsMapSection";
 import { getPublishedLocations } from "@/lib/publish";
 import { locationsToMapPins } from "@/lib/map/pins";
@@ -70,6 +71,9 @@ export function LocationHubPage({ location }: { location: Location }) {
                 Why growth systems win in {location.city}
               </h2>
               <p className="mt-5 text-lg text-body">{location.intro}</p>
+              <div className="mt-6">
+                <LocationLastUpdated location={location} />
+              </div>
             </Reveal>
             <RevealStagger className="space-y-4">
               {location.marketPoints.map((point) => (

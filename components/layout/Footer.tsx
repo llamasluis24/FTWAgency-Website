@@ -37,6 +37,7 @@ export function Footer() {
         { label: "About", href: "/about" },
         { label: "Portfolio", href: "/portfolio" },
         { label: "Case Studies", href: "/case-studies" },
+        { label: "Sitemap", href: "/sitemap" },
         { label: "Contact", href: "/contact" },
       ],
     },

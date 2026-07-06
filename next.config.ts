@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { getServiceCityAliasRedirects } from "./lib/redirect-slugs";
 
 const LEGACY_LOCATION_SLUGS = ["riverside", "corona", "irvine"] as const;
 
@@ -20,6 +21,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...legacyLocationRedirects,
+      ...getServiceCityAliasRedirects(),
       {
         source: "/services/google-ads",
         destination: "/services/paid-ads-management",

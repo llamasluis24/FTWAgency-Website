@@ -5,6 +5,7 @@ import { JsonLd } from "@/components/seo/JsonLd";
 import { buildMetadata, buildLocationOgImage } from "@/lib/metadata";
 import { buildLocationHubMetadata } from "@/lib/metadata-local";
 import { locationHubGraph } from "@/lib/jsonld-graph";
+import { getLocationRobots } from "@/lib/publish-meta";
 import { getLocation } from "@/lib/content";
 import { siteConfig } from "@/content/site";
 import { getPublishedLocations } from "@/lib/publish";
@@ -30,6 +31,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       `/locations/${location.slug}`,
       `${location.city} growth systems — ${siteConfig.name}`,
     ),
+    robots: getLocationRobots(location),
   });
 }
 
