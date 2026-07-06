@@ -6,10 +6,7 @@ import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import {
-  MAPBOX_STYLE,
-  MAPBOX_TOKEN,
-} from "@/lib/map/config";
+import { MAPBOX_STYLE, MAPBOX_TOKEN } from "@/lib/map/config";
 import { getMapPinsForCity, getOverviewBounds, type MapCityPin } from "@/lib/map/pins";
 import { MapCityList, MapFallback } from "./MapFallback";
 
@@ -62,8 +59,17 @@ export function LocationsMap({
     map.on("load", () => {
       setMapReady(true);
     });
-    map.on("error", () => {
-      setMapFailed(true);
+
+    map.on("error", (event) => {
+      const message = event.error?.message ?? "";
+      // Ignore non-fatal tile/style warnings; only fail on auth or style load errors.
+      if (
+        message.includes("401") ||
+        message.includes("403") ||
+        message.includes("Unauthorized")
+      ) {
+        setMapFailed(true);
+      }
     });
 
     mapRef.current = map;
@@ -73,6 +79,7 @@ export function LocationsMap({
       markersRef.current = [];
       map.remove();
       mapRef.current = null;
+      setMapReady(false);
     };
   }, []);
 
@@ -162,7 +169,7 @@ export function LocationsMap({
     }
   }, [activeSlug, focusSlug, mapFailed, mapReady, mode, pins]);
 
-  if (mapFailed || !mapReady) {
+  if (mapFailed) {
     return (
       <div className={cn("grid gap-6 lg:grid-cols-[minmax(0,1fr)_280px]", className)}>
         <MapFallback
@@ -178,10 +185,27 @@ export function LocationsMap({
 
   return (
     <div className={cn("grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]", className)}>
-      <div
-        ref={containerRef}
-        className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10"
-      />
+      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10">
+        {!mapReady ? (
+          <div className="absolute inset-0 z-10">
+            <MapFallback
+              pins={pins}
+              focusSlug={focusSlug}
+              activeSlug={activeSlug}
+              onSelect={setActiveSlug}
+              className="h-full rounded-none border-0"
+            />
+          </div>
+        ) : null}
+        <div
+          ref={containerRef}
+          className={cn(
+            "absolute inset-0",
+            !mapReady && "opacity-0",
+          )}
+          aria-hidden={!mapReady}
+        />
+      </div>
 
       <div className="flex flex-col gap-4">
         <MapCityList
