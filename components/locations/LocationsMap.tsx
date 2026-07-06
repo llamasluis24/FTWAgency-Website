@@ -186,8 +186,10 @@ export function LocationsMap({
   return (
     <div className={cn("grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]", className)}>
       <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10">
+        {/* Map container must stay visible for WebGL — overlay hides fallback until load. */}
+        <div ref={containerRef} className="absolute inset-0" />
         {!mapReady ? (
-          <div className="absolute inset-0 z-10">
+          <div className="absolute inset-0 z-10 pointer-events-none">
             <MapFallback
               pins={pins}
               focusSlug={focusSlug}
@@ -197,14 +199,6 @@ export function LocationsMap({
             />
           </div>
         ) : null}
-        <div
-          ref={containerRef}
-          className={cn(
-            "absolute inset-0",
-            !mapReady && "opacity-0",
-          )}
-          aria-hidden={!mapReady}
-        />
       </div>
 
       <div className="flex flex-col gap-4">

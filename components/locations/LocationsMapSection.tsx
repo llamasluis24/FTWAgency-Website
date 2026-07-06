@@ -13,7 +13,9 @@ const LocationsMap = dynamic(
     })),
   {
     ssr: false,
-    loading: () => null,
+    loading: () => (
+      <div className="aspect-[16/10] w-full animate-pulse rounded-2xl border border-white/10 bg-surface" />
+    ),
   },
 );
 
