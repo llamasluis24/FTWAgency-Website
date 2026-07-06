@@ -97,7 +97,7 @@ export default function HtmlSitemapPage() {
       <Section>
         <Container>
           <p className="mb-10 text-sm text-muted">
-            XML sitemap index:{" "}
+            XML sitemap:{" "}
             <Link href="/sitemap.xml" className="text-accent hover:underline">
               {siteConfig.url}/sitemap.xml
             </Link>

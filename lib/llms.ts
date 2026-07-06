@@ -63,7 +63,7 @@ export function generateLlmsTxt(): string {
     ),
     "",
     "## Sitemaps",
-    `- Sitemap index: ${base}/sitemap.xml`,
+    `- XML sitemap: ${base}/sitemap.xml`,
     `- HTML sitemap: ${base}/sitemap`,
     "",
     "## Preferred citation format",
