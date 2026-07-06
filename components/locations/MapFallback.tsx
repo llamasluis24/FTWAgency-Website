@@ -32,12 +32,15 @@ export function MapFallback({
   activeSlug,
   onSelect,
   className,
+  overlay = false,
 }: {
   pins: MapCityPin[];
   focusSlug?: string;
   activeSlug?: string | null;
   onSelect?: (slug: string) => void;
   className?: string;
+  /** Fill parent when used as loading overlay over Mapbox canvas */
+  overlay?: boolean;
 }) {
   const focusPin = focusSlug ? pins.find((pin) => pin.slug === focusSlug) : null;
   const visiblePins = focusPin
@@ -52,7 +55,10 @@ export function MapFallback({
   return (
     <div
       className={cn(
-        "relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10 bg-[#0b0f14]",
+        "relative w-full overflow-hidden bg-[#0b0f14]",
+        overlay
+          ? "h-full rounded-none border-0"
+          : "aspect-[16/10] rounded-2xl border border-white/10",
         className,
       )}
       role="img"

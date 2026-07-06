@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -11,6 +11,8 @@ import { getMapPinsForCity, getOverviewBounds, type MapCityPin } from "@/lib/map
 import { MapCityList, MapFallback } from "./MapFallback";
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
+
+const MAP_LOAD_TIMEOUT_MS = 12_000;
 
 type LocationsMapProps = {
   pins: MapCityPin[];
@@ -42,39 +44,66 @@ export function LocationsMap({
   const activePin =
     sidebarPins.find((pin) => pin.slug === activeSlug) ?? sidebarPins[0] ?? null;
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (!MAPBOX_TOKEN || !containerRef.current || mapRef.current) return;
 
+    let cancelled = false;
+    const container = containerRef.current;
+
     const map = new mapboxgl.Map({
-      container: containerRef.current,
+      container,
       style: MAPBOX_STYLE,
       center: [-117.5, 33.8],
       zoom: 7,
       attributionControl: false,
+      failIfMajorPerformanceCaveat: false,
     });
 
     map.addControl(new mapboxgl.NavigationControl({ showCompass: false }), "top-right");
     map.addControl(new mapboxgl.AttributionControl({ compact: true }), "bottom-right");
 
-    map.on("load", () => {
+    const failMap = () => {
+      if (!cancelled) setMapFailed(true);
+    };
+
+    const timeoutId = window.setTimeout(failMap, MAP_LOAD_TIMEOUT_MS);
+
+    const onReady = () => {
+      if (cancelled) return;
+      map.resize();
+      window.clearTimeout(timeoutId);
       setMapReady(true);
+    };
+
+    map.once("idle", onReady);
+
+    map.on("load", () => {
+      map.resize();
     });
 
     map.on("error", (event) => {
       const message = event.error?.message ?? "";
-      // Ignore non-fatal tile/style warnings; only fail on auth or style load errors.
       if (
         message.includes("401") ||
         message.includes("403") ||
-        message.includes("Unauthorized")
+        message.includes("Unauthorized") ||
+        message.includes("Forbidden")
       ) {
-        setMapFailed(true);
+        failMap();
       }
     });
+
+    const resizeObserver = new ResizeObserver(() => {
+      map.resize();
+    });
+    resizeObserver.observe(container);
 
     mapRef.current = map;
 
     return () => {
+      cancelled = true;
+      window.clearTimeout(timeoutId);
+      resizeObserver.disconnect();
       markersRef.current.forEach((marker) => marker.remove());
       markersRef.current = [];
       map.remove();
@@ -167,6 +196,8 @@ export function LocationsMap({
       const bounds = getOverviewBounds(pins);
       map.fitBounds(bounds, { padding: 72, maxZoom: 9.5, duration: 900 });
     }
+
+    map.resize();
   }, [activeSlug, focusSlug, mapFailed, mapReady, mode, pins]);
 
   if (mapFailed) {
@@ -185,17 +216,16 @@ export function LocationsMap({
 
   return (
     <div className={cn("grid gap-6 lg:grid-cols-[minmax(0,1fr)_300px]", className)}>
-      <div className="relative aspect-[16/10] w-full overflow-hidden rounded-2xl border border-white/10">
-        {/* Map container must stay visible for WebGL — overlay hides fallback until load. */}
-        <div ref={containerRef} className="absolute inset-0" />
+      <div className="relative aspect-[16/10] min-h-[320px] w-full overflow-hidden rounded-2xl border border-white/10">
+        <div ref={containerRef} className="locations-map-host absolute inset-0 h-full w-full" />
         {!mapReady ? (
-          <div className="absolute inset-0 z-10 pointer-events-none">
+          <div className="absolute inset-0 z-10">
             <MapFallback
               pins={pins}
               focusSlug={focusSlug}
               activeSlug={activeSlug}
               onSelect={setActiveSlug}
-              className="h-full rounded-none border-0"
+              overlay
             />
           </div>
         ) : null}

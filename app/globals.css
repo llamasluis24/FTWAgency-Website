@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "mapbox-gl/dist/mapbox-gl.css";
 
 @theme {
   /* Color palette */
@@ -256,6 +257,18 @@ h6 {
 
 .about-hero-glow {
   animation: about-hero-glow 8s ease-in-out infinite;
+}
+
+/* Mapbox GL — ensure canvas fills the locations map host */
+.locations-map-host,
+.locations-map-host .mapboxgl-map {
+  width: 100%;
+  height: 100%;
+}
+
+.locations-map-host .mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
 }
 
 /* Reduced motion: kill all animation globally */
