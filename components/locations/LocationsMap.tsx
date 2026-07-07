@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import Link from "next/link";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -8,11 +8,18 @@ import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { MAPBOX_STYLE, MAPBOX_TOKEN } from "@/lib/map/config";
 import { getMapPinsForCity, getOverviewBounds, type MapCityPin } from "@/lib/map/pins";
+import {
+  createMapMarkerElement,
+  MAP_FLY_ZOOM,
+  setMapMarkerActive,
+  triggerMapPinPing,
+} from "./map-marker";
 import { MapCityList, MapFallback } from "./MapFallback";
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
 const MAP_LOAD_TIMEOUT_MS = 12_000;
+const CITY_RADIUS_SOURCE = "city-radius";
 
 type LocationsMapProps = {
   pins: MapCityPin[];
@@ -20,6 +27,61 @@ type LocationsMapProps = {
   focusSlug?: string;
   className?: string;
 };
+
+function getVisiblePins(pins: MapCityPin[], mode: "overview" | "city", focusSlug?: string) {
+  if (mode === "city" && focusSlug) {
+    const context = getMapPinsForCity(pins, focusSlug);
+    return context ? [context.focus, ...context.nearby] : pins;
+  }
+  return pins;
+}
+
+function ensureCityRadiusLayers(map: mapboxgl.Map, pin: MapCityPin) {
+  const data: GeoJSON.Feature = {
+    type: "Feature",
+    geometry: {
+      type: "Point",
+      coordinates: [pin.lng, pin.lat],
+    },
+    properties: {},
+  };
+
+  const source = map.getSource(CITY_RADIUS_SOURCE) as mapboxgl.GeoJSONSource | undefined;
+  if (source) {
+    source.setData(data);
+    return;
+  }
+
+  map.addSource(CITY_RADIUS_SOURCE, {
+    type: "geojson",
+    data,
+  });
+
+  map.addLayer({
+    id: "city-radius-fill",
+    type: "circle",
+    source: CITY_RADIUS_SOURCE,
+    paint: {
+      "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 18, 11, 70, 13, 140],
+      "circle-color": "#00d4ff",
+      "circle-opacity": 0.08,
+    },
+  });
+
+  map.addLayer({
+    id: "city-radius-line",
+    type: "circle",
+    source: CITY_RADIUS_SOURCE,
+    paint: {
+      "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 18, 11, 70, 13, 140],
+      "circle-color": "#00d4ff",
+      "circle-opacity": 0,
+      "circle-stroke-width": 1.5,
+      "circle-stroke-color": "#00d4ff",
+      "circle-stroke-opacity": 0.35,
+    },
+  });
+}
 
 export function LocationsMap({
   pins,
@@ -29,7 +91,9 @@ export function LocationsMap({
 }: LocationsMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<mapboxgl.Map | null>(null);
+  const markerRegistryRef = useRef<Map<string, HTMLButtonElement>>(new Map());
   const markersRef = useRef<mapboxgl.Marker[]>([]);
+  const flyRequestRef = useRef(0);
   const [activeSlug, setActiveSlug] = useState<string | null>(
     mode === "city" ? focusSlug ?? null : null,
   );
@@ -41,8 +105,13 @@ export function LocationsMap({
     mode === "city" && cityContext
       ? [cityContext.focus, ...cityContext.nearby]
       : pins;
+  const visiblePins = getVisiblePins(pins, mode, focusSlug);
   const activePin =
     sidebarPins.find((pin) => pin.slug === activeSlug) ?? sidebarPins[0] ?? null;
+
+  const handleSelect = useCallback((slug: string) => {
+    setActiveSlug(slug);
+  }, []);
 
   useLayoutEffect(() => {
     if (!MAPBOX_TOKEN || !containerRef.current || mapRef.current) return;
@@ -106,6 +175,7 @@ export function LocationsMap({
       resizeObserver.disconnect();
       markersRef.current.forEach((marker) => marker.remove());
       markersRef.current = [];
+      markerRegistryRef.current.clear();
       map.remove();
       mapRef.current = null;
       setMapReady(false);
@@ -118,87 +188,67 @@ export function LocationsMap({
 
     markersRef.current.forEach((marker) => marker.remove());
     markersRef.current = [];
-
-    const visiblePins =
-      mode === "city" && focusSlug
-        ? (() => {
-            const context = getMapPinsForCity(pins, focusSlug);
-            return context ? [context.focus, ...context.nearby] : pins;
-          })()
-        : pins;
+    markerRegistryRef.current.clear();
 
     visiblePins.forEach((pin) => {
-      const el = document.createElement("button");
-      el.type = "button";
-      el.className = cn(
-        "h-4 w-4 rounded-full border-2 border-[#0b0f14] transition-transform",
-        pin.slug === activeSlug || pin.slug === focusSlug
-          ? "scale-125 bg-[#00d4ff] shadow-[0_0_16px_rgba(0,212,255,0.8)]"
-          : "bg-[#00d4ff]/80 hover:scale-110",
-      );
-      el.setAttribute("aria-label", `${pin.city}, ${pin.stateAbbr}`);
-      el.addEventListener("click", () => setActiveSlug(pin.slug));
+      const el = createMapMarkerElement({
+        label: `${pin.city}, ${pin.stateAbbr}`,
+        active: pin.slug === activeSlug,
+        onClick: () => handleSelect(pin.slug),
+      });
 
       const marker = new mapboxgl.Marker({ element: el })
         .setLngLat([pin.lng, pin.lat])
         .addTo(map);
+
+      markerRegistryRef.current.set(pin.slug, el);
       markersRef.current.push(marker);
     });
+  }, [focusSlug, handleSelect, mapFailed, mapReady, mode, pins, visiblePins]);
 
-    if (mode === "city" && focusSlug) {
-      const focus = pins.find((pin) => pin.slug === focusSlug);
-      if (focus) {
-        map.flyTo({ center: [focus.lng, focus.lat], zoom: 10.5, duration: 900 });
+  useEffect(() => {
+    markerRegistryRef.current.forEach((el, slug) => {
+      setMapMarkerActive(el, slug === activeSlug);
+    });
+  }, [activeSlug]);
 
-        const sourceId = "city-radius";
-        if (map.getLayer("city-radius-fill")) map.removeLayer("city-radius-fill");
-        if (map.getLayer("city-radius-line")) map.removeLayer("city-radius-line");
-        if (map.getSource(sourceId)) map.removeSource(sourceId);
+  useEffect(() => {
+    const map = mapRef.current;
+    if (!map || !mapReady || mapFailed) return;
 
-        map.addSource(sourceId, {
-          type: "geojson",
-          data: {
-            type: "Feature",
-            geometry: {
-              type: "Point",
-              coordinates: [focus.lng, focus.lat],
-            },
-            properties: {},
-          },
-        });
-
-        map.addLayer({
-          id: "city-radius-fill",
-          type: "circle",
-          source: sourceId,
-          paint: {
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 18, 11, 70, 13, 140],
-            "circle-color": "#00d4ff",
-            "circle-opacity": 0.08,
-          },
-        });
-
-        map.addLayer({
-          id: "city-radius-line",
-          type: "circle",
-          source: sourceId,
-          paint: {
-            "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 18, 11, 70, 13, 140],
-            "circle-color": "#00d4ff",
-            "circle-opacity": 0,
-            "circle-stroke-width": 1.5,
-            "circle-stroke-color": "#00d4ff",
-            "circle-stroke-opacity": 0.35,
-          },
-        });
-      }
-    } else {
+    if (mode === "overview" && !activeSlug) {
       const bounds = getOverviewBounds(pins);
       map.fitBounds(bounds, { padding: 72, maxZoom: 9.5, duration: 900 });
+      return;
     }
 
-    map.resize();
-  }, [activeSlug, focusSlug, mapFailed, mapReady, mode, pins]);
+    if (!activePin) return;
+
+    const requestId = ++flyRequestRef.current;
+    const markerEl = markerRegistryRef.current.get(activePin.slug);
+
+    if (mode === "city") {
+      ensureCityRadiusLayers(map, activePin);
+    }
+
+    const onMoveEnd = () => {
+      if (requestId !== flyRequestRef.current) return;
+      map.off("moveend", onMoveEnd);
+      if (markerEl) triggerMapPinPing(markerEl);
+    };
+
+    map.on("moveend", onMoveEnd);
+    map.flyTo({
+      center: [activePin.lng, activePin.lat],
+      zoom: MAP_FLY_ZOOM[mode],
+      duration: 900,
+      essential: true,
+    });
+
+    return () => {
+      map.off("moveend", onMoveEnd);
+    };
+  }, [activePin, activeSlug, mapFailed, mapReady, mode, pins]);
 
   if (mapFailed) {
     return (
@@ -207,9 +257,9 @@ export function LocationsMap({
           pins={pins}
           focusSlug={focusSlug}
           activeSlug={activeSlug}
-          onSelect={setActiveSlug}
+          onSelect={handleSelect}
         />
-        <MapCityList pins={sidebarPins} activeSlug={activeSlug} onSelect={setActiveSlug} />
+        <MapCityList pins={sidebarPins} activeSlug={activeSlug} onSelect={handleSelect} />
       </div>
     );
   }
@@ -224,7 +274,7 @@ export function LocationsMap({
               pins={pins}
               focusSlug={focusSlug}
               activeSlug={activeSlug}
-              onSelect={setActiveSlug}
+              onSelect={handleSelect}
               overlay
             />
           </div>
@@ -235,7 +285,7 @@ export function LocationsMap({
         <MapCityList
           pins={sidebarPins}
           activeSlug={activeSlug}
-          onSelect={setActiveSlug}
+          onSelect={handleSelect}
           title={mode === "city" ? "This market & nearby" : "Southern California"}
         />
 

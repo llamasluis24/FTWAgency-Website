@@ -1,17 +1,35 @@
 import Link from "next/link";
+import { useEffect, useRef } from "react";
 import { MapPin } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { geoToPercent, type MapCityPin } from "@/lib/map/pins";
 
-function MapPinMarker({ pin, highlighted }: { pin: MapCityPin; highlighted: boolean }) {
+function MapPinMarker({
+  pin,
+  highlighted,
+  activeSlug,
+}: {
+  pin: MapCityPin;
+  highlighted: boolean;
+  activeSlug?: string | null;
+}) {
+  const pingRef = useRef<HTMLSpanElement>(null);
+
+  useEffect(() => {
+    if (!highlighted || activeSlug !== pin.slug || !pingRef.current) return;
+
+    pingRef.current.classList.remove("map-fallback-pin__ping--active");
+    void pingRef.current.offsetWidth;
+    pingRef.current.classList.add("map-fallback-pin__ping--active");
+  }, [activeSlug, highlighted, pin.slug]);
+
   return (
-    <>
+  <span className="map-fallback-pin">
+      <span ref={pingRef} className="map-fallback-pin__ping" aria-hidden="true" />
       <span
         className={cn(
-          "absolute left-1/2 top-1/2 h-3 w-3 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-[#0b0f14]",
-          highlighted
-            ? "bg-accent shadow-[0_0_16px_rgba(0,212,255,0.8)]"
-            : "bg-accent/70",
+          "map-fallback-pin__dot",
+          highlighted && "map-fallback-pin__dot--active",
         )}
       />
       <span
@@ -22,7 +40,7 @@ function MapPinMarker({ pin, highlighted }: { pin: MapCityPin; highlighted: bool
       >
         {pin.city}
       </span>
-    </>
+    </span>
   );
 }
 
@@ -88,7 +106,7 @@ export function MapFallback({
               aria-label={`Select ${pin.city}`}
               onClick={() => onSelect(pin.slug)}
             >
-              <MapPinMarker pin={pin} highlighted={highlighted} />
+              <MapPinMarker pin={pin} highlighted={highlighted} activeSlug={activeSlug} />
             </button>
           );
         }
@@ -101,7 +119,7 @@ export function MapFallback({
             style={{ left: `${x}%`, top: `${y}%` }}
             aria-label={`${pin.city}, ${pin.stateAbbr}`}
           >
-            <MapPinMarker pin={pin} highlighted={highlighted} />
+            <MapPinMarker pin={pin} highlighted={highlighted} activeSlug={activeSlug} />
           </Link>
         );
       })}
