@@ -205,8 +205,8 @@ export function LocationHubPage({ location }: { location: Location }) {
                   href={`/locations/${location.slug}/industries/${industry.slug}`}
                   className="card-surface card-hover group flex items-center gap-3 p-5"
                 >
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-accent/10">
-                    <Icon name={industry.icon} className="h-4 w-4 text-accent" />
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[#60d8b8]/10">
+                    <Icon name={industry.icon} className="h-4 w-4 text-[#60d8b8]" />
                   </span>
                   <span className="flex-1 font-display text-sm font-semibold text-heading transition-colors group-hover:text-accent">
                     {industry.title}
