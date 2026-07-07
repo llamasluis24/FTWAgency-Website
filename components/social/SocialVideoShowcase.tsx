@@ -90,7 +90,7 @@ export function SocialVideoShowcase({ className }: { className?: string }) {
 
         <div className="mx-auto grid max-w-5xl grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
           {socialVideoShowcase.items.map((item) => (
-            <ShowcaseVideo key={item.title} item={item} />
+            <ShowcaseVideo key={item.src} item={item} />
           ))}
         </div>
       </Container>
