@@ -24,6 +24,7 @@ import {
   getRelatedServices,
   getService,
 } from "@/lib/content";
+import { SocialVideoShowcase } from "@/components/social/SocialVideoShowcase";
 import { SocialVisualDemonstration } from "@/components/social/SocialVisualDemonstration";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -60,6 +61,8 @@ export default function ViralSocialMediaPage() {
           { name: service.shortTitle, path: `/services/${service.slug}` },
         ]}
       />
+
+      <SocialVideoShowcase />
 
       <SocialVisualDemonstration />
 
