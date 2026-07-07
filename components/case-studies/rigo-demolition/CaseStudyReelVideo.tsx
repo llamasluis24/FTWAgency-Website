@@ -56,6 +56,9 @@ export function CaseStudyReelVideo({
           playsInline
           preload={shouldLoad ? "metadata" : "none"}
           poster={poster}
+          controlsList="nodownload noplaybackrate"
+          disablePictureInPicture
+          onContextMenu={(e) => e.preventDefault()}
           aria-label={`${name} demolition reel — ${location}`}
           className="h-full w-full object-cover"
         >
