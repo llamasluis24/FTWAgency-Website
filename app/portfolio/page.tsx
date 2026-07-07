@@ -21,7 +21,7 @@ export default function PortfolioPage() {
       <PageHero
         eyebrow="Portfolio"
         headline="Systems We've *Shipped*."
-        sub="Every project here is live — websites, software platforms, and custom systems built for real businesses across home services, hospitality, technology, and tourism."
+        sub="Every project here is live — websites, social reels, software platforms, and custom systems built for real businesses across home services, hospitality, technology, and tourism."
         crumbs={[{ name: "Portfolio", path: "/portfolio" }]}
         showCtas={false}
       />

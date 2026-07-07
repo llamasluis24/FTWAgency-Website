@@ -56,10 +56,12 @@ export const StatSchema = z.object({
  */
 export const ScreenshotSchema = z.object({
   title: z.string(),
-  kind: z.enum(["website", "dashboard", "mobile", "chart", "reviews", "pipeline"]),
+  kind: z.enum(["website", "dashboard", "mobile", "chart", "reviews", "pipeline", "reel"]),
   /** When set, renders real imagery instead of the stylized mock layout. */
   src: z.string().optional(),
   alt: z.string().optional(),
+  /** MP4 source for reel previews (kind: reel). */
+  videoSrc: z.string().optional(),
 });
 
 export const PointSchema = z.object({
@@ -205,8 +207,8 @@ export const ProjectSchema = z.object({
   slug: z.string(),
   title: z.string(),
   industry: z.string(),
-  /** Portfolio grouping — websites vs custom software platforms. */
-  portfolioKind: z.enum(["website", "software"]),
+  /** Portfolio grouping — websites, social reels, or custom software platforms. */
+  portfolioKind: z.enum(["website", "software", "social-media"]),
   services: z.array(z.string()),
   description: z.string(),
   screenshots: z.array(ScreenshotSchema),

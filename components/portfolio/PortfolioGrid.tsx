@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import { ProjectCard, type ProjectCardData } from "@/components/cards/ProjectCard";
 import { cn } from "@/lib/utils";
 
-type PortfolioView = "all" | "website" | "software";
+type PortfolioView = "all" | "website" | "social-media" | "software";
 
 const SECTION_COPY = {
   website: {
@@ -12,6 +12,12 @@ const SECTION_COPY = {
     title: "Conversion-engineered sites that turn search into revenue",
     lede:
       "Lead-generation websites, tourism hubs, and hospitality experiences — built for credibility, local visibility, and clear conversion paths.",
+  },
+  "social-media": {
+    eyebrow: "Social Media",
+    title: "Short-form video that stops the scroll and drives inquiries",
+    lede:
+      "Reels and TikTok content for contractors, builders, and automotive brands — shot on-site, edited for the feed, and built to turn views into leads.",
   },
   software: {
     eyebrow: "Custom Software",
@@ -23,14 +29,14 @@ const SECTION_COPY = {
 
 function PortfolioStats({ projects }: { projects: ProjectCardData[] }) {
   const websiteCount = projects.filter((p) => p.project.portfolioKind === "website").length;
+  const socialCount = projects.filter((p) => p.project.portfolioKind === "social-media").length;
   const softwareCount = projects.filter((p) => p.project.portfolioKind === "software").length;
-  const industryCount = new Set(projects.map((p) => p.project.industry)).size;
 
   const stats = [
-    { value: String(projects.length), label: "systems shipped" },
+    { value: String(projects.length), label: "projects shipped" },
     { value: String(websiteCount), label: "websites & platforms" },
+    { value: String(socialCount), label: "social media reels" },
     { value: String(softwareCount), label: "software products" },
-    { value: String(industryCount), label: "industries served" },
   ];
 
   return (
@@ -59,7 +65,7 @@ function PortfolioSection({
   kind,
   items,
 }: {
-  kind: "website" | "software";
+  kind: "website" | "social-media" | "software";
   items: ProjectCardData[];
 }) {
   const copy = SECTION_COPY[kind];
@@ -81,6 +87,10 @@ export function PortfolioGrid({ projects }: { projects: ProjectCardData[] }) {
 
   const websites = useMemo(
     () => projects.filter((p) => p.project.portfolioKind === "website"),
+    [projects],
+  );
+  const socialMedia = useMemo(
+    () => projects.filter((p) => p.project.portfolioKind === "social-media"),
     [projects],
   );
   const software = useMemo(
@@ -115,6 +125,14 @@ export function PortfolioGrid({ projects }: { projects: ProjectCardData[] }) {
         </button>
         <button
           type="button"
+          className={tab(view === "social-media")}
+          onClick={() => setView("social-media")}
+        >
+          Social Media
+          <span className="ml-1.5 text-xs opacity-70">({socialMedia.length})</span>
+        </button>
+        <button
+          type="button"
           className={tab(view === "software")}
           onClick={() => setView("software")}
         >
@@ -126,10 +144,13 @@ export function PortfolioGrid({ projects }: { projects: ProjectCardData[] }) {
       {view === "all" ? (
         <div className="space-y-20 md:space-y-24">
           <PortfolioSection kind="website" items={websites} />
+          <PortfolioSection kind="social-media" items={socialMedia} />
           <PortfolioSection kind="software" items={software} />
         </div>
       ) : view === "website" ? (
         <PortfolioSection kind="website" items={websites} />
+      ) : view === "social-media" ? (
+        <PortfolioSection kind="social-media" items={socialMedia} />
       ) : (
         <PortfolioSection kind="software" items={software} />
       )}

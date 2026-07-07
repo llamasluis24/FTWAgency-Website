@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Star } from "lucide-react";
 import type { Screenshot } from "@/lib/schemas";
+import { LazyReelVideo } from "@/components/media/LazyReelVideo";
 import { cn } from "@/lib/utils";
 
 /**
@@ -24,27 +25,39 @@ export function MockPanel({
         className,
       )}
     >
-      {/* Browser/window chrome */}
-      <div className="flex items-center gap-1.5 border-b border-white/5 bg-bg/60 px-4 py-2.5">
-        <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-        <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
-        <span className="ml-3 hidden h-4 flex-1 rounded-full bg-white/5 sm:block" />
-      </div>
-      <div className={cn(screenshot.src ? "relative h-44 overflow-hidden bg-black" : "p-4")}>
-        {screenshot.src ? (
-          <Image
-            src={screenshot.src}
-            alt={screenshot.alt ?? screenshot.title}
-            width={1280}
-            height={720}
-            className="h-full w-full object-cover object-top"
-            sizes="(max-width: 768px) 100vw, 33vw"
+      {screenshot.kind === "reel" && screenshot.videoSrc && screenshot.src ? (
+        <div className="relative mx-auto aspect-[9/16] max-h-80 w-full max-w-[220px] overflow-hidden bg-black">
+          <LazyReelVideo
+            src={screenshot.videoSrc}
+            poster={screenshot.src}
+            label={screenshot.alt ?? screenshot.title}
           />
-        ) : (
-          <MockBody kind={screenshot.kind} muted={muted} />
-        )}
-      </div>
+        </div>
+      ) : (
+        <>
+          {/* Browser/window chrome */}
+          <div className="flex items-center gap-1.5 border-b border-white/5 bg-bg/60 px-4 py-2.5">
+            <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
+            <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
+            <span className="h-2.5 w-2.5 rounded-full bg-white/10" />
+            <span className="ml-3 hidden h-4 flex-1 rounded-full bg-white/5 sm:block" />
+          </div>
+          <div className={cn(screenshot.src ? "relative h-44 overflow-hidden bg-black" : "p-4")}>
+            {screenshot.src ? (
+              <Image
+                src={screenshot.src}
+                alt={screenshot.alt ?? screenshot.title}
+                width={1280}
+                height={720}
+                className="h-full w-full object-cover object-top"
+                sizes="(max-width: 768px) 100vw, 33vw"
+              />
+            ) : (
+              <MockBody kind={screenshot.kind} muted={muted} />
+            )}
+          </div>
+        </>
+      )}
       <div className="border-t border-white/5 px-4 py-2.5 text-xs text-muted">
         {screenshot.title}
       </div>
