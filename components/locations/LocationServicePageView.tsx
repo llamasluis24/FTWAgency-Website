@@ -8,6 +8,7 @@ import { Section, Container } from "@/components/layout/Section";
 import { Reveal } from "@/components/ui/Reveal";
 import { LocalProofStrip } from "@/components/locations/LocalProofStrip";
 import { LocationHubLink } from "@/components/locations/LocationFactBlock";
+import { getLocationHeroImage } from "@/content/location-hero-images";
 import { locationServiceCopy } from "@/lib/combo";
 import {
   getCaseStudiesByLocation,
@@ -45,6 +46,7 @@ export function LocationServicePageView({
         eyebrow={`${service.shortTitle} · ${location.city}, ${location.stateAbbr}`}
         headline={copy.headline}
         sub={copy.sub}
+        backgroundImage={getLocationHeroImage(location.slug)}
         breadcrumbSchema={false}
         crumbs={crumbs}
       />

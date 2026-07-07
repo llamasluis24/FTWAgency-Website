@@ -10,7 +10,7 @@ import { Section, Container } from "@/components/layout/Section";
 import { Reveal, RevealItem, RevealStagger } from "@/components/ui/Reveal";
 import { LocalProofStrip } from "@/components/locations/LocalProofStrip";
 import { LocationHubLink } from "@/components/locations/LocationFactBlock";
-import { getIndustryHeroImage } from "@/content/industry-hero-images";
+import { getLocationHeroImage } from "@/content/location-hero-images";
 import { locationIndustryCopy } from "@/lib/combo";
 import { getIndustry, getService } from "@/lib/content";
 import { getCaseStudiesByLocation, getNearbyLocations } from "@/lib/linking";
@@ -46,7 +46,7 @@ export function LocationIndustryPageView({
         eyebrow={`${industry.title} · ${location.city}, ${location.stateAbbr}`}
         headline={copy.headline}
         sub={copy.sub}
-        backgroundImage={getIndustryHeroImage(industry.slug)}
+        backgroundImage={getLocationHeroImage(location.slug)}
         breadcrumbSchema={false}
         crumbs={crumbs}
       />

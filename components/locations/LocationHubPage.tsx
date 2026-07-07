@@ -31,6 +31,7 @@ import {
 } from "@/lib/publish";
 import { LocationFactBlock } from "@/components/locations/LocationFactBlock";
 import { LocationLastUpdated } from "@/components/locations/LocationLastUpdated";
+import { getLocationHeroImage } from "@/content/location-hero-images";
 import { LocationsMapSection } from "@/components/locations/LocationsMapSection";
 import { getPublishedLocations } from "@/lib/publish";
 import { locationsToMapPins } from "@/lib/map/pins";
@@ -55,6 +56,7 @@ export function LocationHubPage({ location }: { location: Location }) {
         eyebrow={`${location.city}, ${location.state}`}
         headline={location.heroHeadline}
         sub={location.heroSub}
+        backgroundImage={getLocationHeroImage(location.slug)}
         breadcrumbSchema={false}
         crumbs={[
           { name: "Locations", path: "/locations" },

@@ -11,6 +11,7 @@ import {
 } from "../lib/publish.ts";
 import { SOCAL_BOUNDS } from "../lib/map/config.ts";
 import { getAllSitemapEntries, getSitemapSegmentCounts } from "../lib/sitemap-urls.ts";
+import { locationHeroImages } from "../content/location-hero-images.ts";
 
 const EXPECTED_CITIES = 10;
 const services = getAllServices();
@@ -144,6 +145,13 @@ pass(
 if (segmentCounts.locations < 220) {
   fail(`Expected at least 220 location sitemap URLs (hubs + combos), got ${segmentCounts.locations}`);
 }
+
+for (const location of locations) {
+  if (!locationHeroImages[location.slug]) {
+    fail(`Missing hero image for ${location.slug}`);
+  }
+}
+pass(`Location hero images configured for all ${locations.length} markets`);
 
 console.log("\n--- Summary ---");
 console.log(`Errors: ${errors}`);
