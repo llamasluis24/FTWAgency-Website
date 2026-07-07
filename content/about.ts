@@ -145,10 +145,11 @@ export const aboutBuilding = {
       href: "/case-studies/mobilehomecrm-cal-star",
     },
     {
-      title: "Flex Electric OS",
+      title: "Clear Cartel Automotive Restyling",
       description:
-        "Internal operating system connecting dispatch, field teams, and customer communication for electrical service businesses.",
-      tag: "Platform",
+        "Coors Light–branded BMW wrap reveal reel — high-energy automotive content built to stop the scroll and drive shop inquiries for custom wraps and detailing.",
+      tag: "Social Media",
+      href: "/portfolio",
     },
     {
       title: "Internal AI Agents",
