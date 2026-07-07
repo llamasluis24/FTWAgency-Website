@@ -27,7 +27,7 @@ interface Props {
 
 export function generateStaticParams() {
   return getAllCaseStudies()
-    .filter((c) => !["mobilehomecrm-cal-star", "farmhouse-collective", "visit-riverside", "vertex-services"].includes(c.slug))
+    .filter((c) => !["mobilehomecrm-cal-star", "rigo-demolition", "farmhouse-collective", "visit-riverside", "vertex-services"].includes(c.slug))
     .map((c) => ({ slug: c.slug }));
 }
 

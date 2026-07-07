@@ -65,7 +65,7 @@ export const losAngelesCa: Location = {
     "Long Beach",
     "Santa Monica",
   ],
-  featuredCaseStudies: [],
+  featuredCaseStudies: ["rigo-demolition"],
   featuredProjects: [],
   featuredArticles: ["growth-systems-vs-marketing", "aio-explained"],
   faqs: [
