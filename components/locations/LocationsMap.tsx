@@ -63,7 +63,7 @@ function ensureCityRadiusLayers(map: mapboxgl.Map, pin: MapCityPin) {
     source: CITY_RADIUS_SOURCE,
     paint: {
       "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 18, 11, 70, 13, 140],
-      "circle-color": "#60d8b8",
+      "circle-color": "#00d4ff",
       "circle-opacity": 0.08,
     },
   });
@@ -74,10 +74,10 @@ function ensureCityRadiusLayers(map: mapboxgl.Map, pin: MapCityPin) {
     source: CITY_RADIUS_SOURCE,
     paint: {
       "circle-radius": ["interpolate", ["linear"], ["zoom"], 8, 18, 11, 70, 13, 140],
-      "circle-color": "#60d8b8",
+      "circle-color": "#00d4ff",
       "circle-opacity": 0,
       "circle-stroke-width": 1.5,
-      "circle-stroke-color": "#60d8b8",
+      "circle-stroke-color": "#00d4ff",
       "circle-stroke-opacity": 0.35,
     },
   });

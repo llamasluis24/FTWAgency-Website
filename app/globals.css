@@ -292,7 +292,7 @@ h6 {
   transform: translate(-50%, -50%);
   border-radius: 9999px;
   border: 2px solid #0b0f14;
-  background: rgba(96, 216, 184, 0.8);
+  background: rgba(0, 212, 255, 0.8);
   transition: transform 150ms ease;
 }
 
@@ -302,8 +302,8 @@ h6 {
 
 .map-marker-dot--active {
   transform: translate(-50%, -50%) scale(1.25);
-  background: #60d8b8;
-  box-shadow: 0 0 16px rgba(96, 216, 184, 0.8);
+  background: #00d4ff;
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.8);
 }
 
 .map-marker-ping {
@@ -314,7 +314,7 @@ h6 {
   width: 1rem;
   transform: translate(-50%, -50%);
   border-radius: 9999px;
-  background: rgba(96, 216, 184, 0.45);
+  background: rgba(0, 212, 255, 0.45);
   pointer-events: none;
   opacity: 0;
 }
@@ -349,7 +349,7 @@ h6 {
   width: 0.75rem;
   transform: translate(-50%, -50%);
   border-radius: 9999px;
-  background: rgba(96, 216, 184, 0.45);
+  background: rgba(0, 212, 255, 0.45);
   pointer-events: none;
   opacity: 0;
 }
@@ -367,12 +367,12 @@ h6 {
   transform: translate(-50%, -50%);
   border-radius: 9999px;
   border: 2px solid #0b0f14;
-  background: rgba(96, 216, 184, 0.7);
+  background: rgba(0, 212, 255, 0.7);
 }
 
 .map-fallback-pin__dot--active {
-  background: #60d8b8;
-  box-shadow: 0 0 16px rgba(96, 216, 184, 0.8);
+  background: var(--color-accent);
+  box-shadow: 0 0 16px rgba(0, 212, 255, 0.8);
 }
 
 /* Reduced motion: kill all animation globally */

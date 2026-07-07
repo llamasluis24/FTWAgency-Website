@@ -154,7 +154,7 @@ export function MapCityList({
 
           const body = (
             <>
-              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-accent" strokeWidth={2} />
+              <MapPin className="mt-0.5 h-4 w-4 shrink-0 text-[#60d8b8]" strokeWidth={2} />
               <span>
                 <span className="block text-sm font-semibold text-heading">
                   {pin.city}, {pin.stateAbbr}
