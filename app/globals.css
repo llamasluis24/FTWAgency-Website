@@ -94,6 +94,10 @@ h6 {
   display: inline;
 }
 
+.hero-section .eyebrow {
+  color: #60d8b8;
+}
+
 /* Eyebrow label */
 .eyebrow {
   font-size: 0.8125rem;
