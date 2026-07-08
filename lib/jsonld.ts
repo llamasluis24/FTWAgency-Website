@@ -11,7 +11,6 @@ export function organizationSchema(): JsonLdObject {
     name: siteConfig.name,
     url: siteConfig.url,
     email: siteConfig.email,
-    telephone: siteConfig.phone,
     description: siteConfig.description,
     address: {
       "@type": "PostalAddress",
@@ -31,7 +30,6 @@ export function localBusinessSchema(location: Location): JsonLdObject {
     "@type": "LocalBusiness",
     name: `${siteConfig.name} — ${location.city}`,
     url: `${siteConfig.url}/locations/${location.slug}`,
-    telephone: siteConfig.phone,
     email: siteConfig.email,
     description: location.meta.description,
     areaServed: location.serviceAreas.map((area) => ({

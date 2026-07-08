@@ -46,7 +46,6 @@ function localBusinessNode(location: Location, pageUrl: string): JsonLdNode {
     "@id": `${pageUrl}#localbusiness`,
     name: `${siteConfig.name} — ${location.city}`,
     url: pageUrl,
-    telephone: siteConfig.phone,
     email: siteConfig.email,
     description: location.meta.description,
     parentOrganization: { "@id": ORG_ID },

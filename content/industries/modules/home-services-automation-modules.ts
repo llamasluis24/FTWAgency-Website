@@ -13,7 +13,7 @@ export const homeServicesAutomationModules = {
     lede:
       "Your crew can't answer from a crawlspace. Automation texts back in seconds, qualifies the job, and books the appointment before the homeowner calls your competitor.",
     smsMessages: [
-      { sender: "system", text: "Missed call from (951) 555-0142 — Emergency HVAC" },
+      { sender: "system", text: "Missed call from (951) 555-0198 — Emergency HVAC" },
       {
         sender: "business",
         text: "Hi! Sorry we missed your call — this is Summit Comfort HVAC. Need emergency AC repair? Reply YES and we'll get a tech scheduled today.",

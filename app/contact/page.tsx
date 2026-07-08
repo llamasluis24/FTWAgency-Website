@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Mail, MapPin } from "lucide-react";
 import { StrategyCallForm } from "@/components/contact/StrategyCallForm";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { Container } from "@/components/layout/Section";
@@ -77,13 +77,6 @@ export default function ContactPage() {
             </div>
 
             <div className="mt-12 space-y-3 border-t border-white/5 pt-8 text-sm">
-              <a
-                href={`tel:${siteConfig.phone.replace(/\D/g, "")}`}
-                className="flex items-center gap-3 text-body transition-colors hover:text-accent"
-              >
-                <Phone className="h-4 w-4 text-accent" strokeWidth={2} />
-                {siteConfig.phone}
-              </a>
               <a
                 href={`mailto:${siteConfig.email}`}
                 className="flex items-center gap-3 text-body transition-colors hover:text-accent"

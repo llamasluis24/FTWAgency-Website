@@ -7,12 +7,11 @@ export const siteConfig = {
     "Custom Websites, SEO, AIO, Advertising, Automation, Mobile Apps, and Software Solutions Designed to Accelerate Growth.",
   url: process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.ftwagency.ai",
   email: "hello@ftwagency.com",
-  phone: "(951) 555-0142",
   address: {
-    street: "3403 10th Street, Suite 200",
+    street: "1501 Research Park Dr",
     city: "Riverside",
     state: "CA",
-    zip: "92501",
+    zip: "92507",
   },
   social: {
     linkedin: "https://www.linkedin.com/company/ftw-agency",

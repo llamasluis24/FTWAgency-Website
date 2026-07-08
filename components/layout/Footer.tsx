@@ -90,10 +90,6 @@ export function Footer() {
                 <a href={`mailto:${siteConfig.email}`} className="transition-colors hover:text-accent">
                   {siteConfig.email}
                 </a>
-                {" · "}
-                <a href={`tel:${siteConfig.phone.replace(/\D/g, "")}`} className="transition-colors hover:text-accent">
-                  {siteConfig.phone}
-                </a>
               </p>
             </div>
           </div>
