@@ -9,7 +9,7 @@ export const ranchoCucamongaCa: Location = {
   region: "Southern California",
   metro: "Riverside-San Bernardino-Ontario",
   geo: { lat: 34.1064, lng: -117.5931 },
-  nearbySlugs: ["ontario-ca", "corona-ca", "riverside-ca"],
+  nearbySlugs: ["ontario-ca", "corona-ca", "riverside-ca", "fontana-ca"],
   publish: { status: "full", publishedAt: "2026-07-05", lastModified: "2026-07-05" },
   heroHeadline: "Growth Systems for *Rancho Cucamonga* Businesses.",
   heroSub:

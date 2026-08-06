@@ -9,7 +9,7 @@ export const sanDiegoCa: Location = {
   region: "Southern California",
   metro: "San Diego-Carlsbad",
   geo: { lat: 32.7157, lng: -117.1611 },
-  nearbySlugs: ["carlsbad-ca", "los-angeles-ca"],
+  nearbySlugs: ["carlsbad-ca", "oceanside-ca", "chula-vista-ca"],
   publish: { status: "full", publishedAt: "2026-07-05", lastModified: "2026-07-05" },
   heroHeadline: "Growth Systems for *San Diego* Businesses.",
   heroSub:

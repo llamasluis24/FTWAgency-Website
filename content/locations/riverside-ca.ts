@@ -9,7 +9,7 @@ export const riversideCa: Location = {
   region: "Southern California",
   metro: "Riverside-San Bernardino-Ontario",
   geo: { lat: 33.9533, lng: -117.3962 },
-  nearbySlugs: ["corona-ca", "ontario-ca", "rancho-cucamonga-ca"],
+  nearbySlugs: ["corona-ca", "ontario-ca", "rancho-cucamonga-ca", "moreno-valley-ca", "fontana-ca"],
   publish: { status: "full", publishedAt: "2026-07-05", lastModified: "2026-07-05" },
   heroHeadline: "Growth Systems for *Riverside* Businesses.",
   heroSub:

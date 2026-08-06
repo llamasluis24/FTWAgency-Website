@@ -57,6 +57,56 @@ export const locationHeroImages: Record<string, LocationHeroImage> = {
     alt: "Griffith Observatory overlooking the Los Angeles skyline at dusk",
     landmark: "Griffith Observatory",
   },
+  "long-beach-ca": {
+    src: "/locations/heroes/long-beach-ca.jpg",
+    alt: "RMS Queen Mary docked in Long Beach Harbor — the city's iconic ocean liner landmark",
+    landmark: "Queen Mary",
+  },
+  "pasadena-ca": {
+    src: "/locations/heroes/pasadena-ca.jpg",
+    alt: "Pasadena City Hall — the Spanish Colonial Revival civic landmark of Pasadena",
+    landmark: "Pasadena City Hall",
+  },
+  "fontana-ca": {
+    src: "/locations/heroes/fontana-ca.jpg",
+    alt: "Fontana with the San Bernardino Mountains rising beyond the Inland Empire corridor",
+    landmark: "San Bernardino Mountains",
+  },
+  "moreno-valley-ca": {
+    src: "/locations/heroes/moreno-valley-ca.jpg",
+    alt: "Lake Perris State Recreation Area near Moreno Valley — the region's signature reservoir landmark",
+    landmark: "Lake Perris",
+  },
+  "temecula-ca": {
+    src: "/locations/heroes/temecula-ca.jpg",
+    alt: "Temecula Valley vineyards — wine country rows defining southwest Riverside County",
+    landmark: "Temecula Valley Wine Country",
+  },
+  "huntington-beach-ca": {
+    src: "/locations/heroes/huntington-beach-ca.jpg",
+    alt: "Huntington Beach Pier stretching into the Pacific — Surf City's defining coastal landmark",
+    landmark: "Huntington Beach Pier",
+  },
+  "oceanside-ca": {
+    src: "/locations/heroes/oceanside-ca.jpg",
+    alt: "Oceanside Pier from above along the North County San Diego coastline",
+    landmark: "Oceanside Pier",
+  },
+  "chula-vista-ca": {
+    src: "/locations/heroes/chula-vista-ca.jpg",
+    alt: "Chula Vista Bayfront marina looking across San Diego Bay",
+    landmark: "Chula Vista Bayfront",
+  },
+  "fullerton-ca": {
+    src: "/locations/heroes/fullerton-ca.jpg",
+    alt: "Plummer Auditorium in Fullerton — the historic Spanish Colonial campus landmark",
+    landmark: "Plummer Auditorium",
+  },
+  "torrance-ca": {
+    src: "/locations/heroes/torrance-ca.jpg",
+    alt: "Path to Torrance Beach shoreline — the South Bay's local coastal landmark",
+    landmark: "Torrance Beach",
+  },
 };
 
 export function getLocationHeroImage(slug: string): LocationHeroImage | undefined {

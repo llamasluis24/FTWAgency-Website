@@ -9,7 +9,7 @@ export const irvineCa: Location = {
   region: "Southern California",
   metro: "Los Angeles-Long Beach-Anaheim",
   geo: { lat: 33.6846, lng: -117.8265 },
-  nearbySlugs: ["anaheim-ca", "santa-ana-ca", "los-angeles-ca"],
+  nearbySlugs: ["anaheim-ca", "santa-ana-ca", "huntington-beach-ca", "fullerton-ca"],
   publish: { status: "full", publishedAt: "2026-07-05", lastModified: "2026-07-05" },
   heroHeadline: "Growth Systems for *Irvine* Businesses.",
   heroSub:

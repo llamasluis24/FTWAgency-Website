@@ -9,7 +9,7 @@ export const losAngelesCa: Location = {
   region: "Southern California",
   metro: "Los Angeles-Long Beach-Anaheim",
   geo: { lat: 34.0522, lng: -118.2437 },
-  nearbySlugs: ["irvine-ca", "anaheim-ca", "santa-ana-ca", "riverside-ca"],
+  nearbySlugs: ["irvine-ca", "anaheim-ca", "santa-ana-ca", "long-beach-ca", "pasadena-ca", "torrance-ca"],
   publish: { status: "full", publishedAt: "2026-07-05", lastModified: "2026-07-05" },
   heroHeadline: "Growth Systems for *Los Angeles* Businesses.",
   heroSub:

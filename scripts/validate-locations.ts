@@ -13,7 +13,7 @@ import { SOCAL_BOUNDS } from "../lib/map/config.ts";
 import { getAllSitemapEntries, getSitemapSegmentCounts } from "../lib/sitemap-urls.ts";
 import { locationHeroImages } from "../content/location-hero-images.ts";
 
-const EXPECTED_CITIES = 10;
+const EXPECTED_CITIES = 20;
 const services = getAllServices();
 const industries = getAllIndustries();
 
@@ -108,10 +108,10 @@ for (const location of locations) {
 
 const totalCombos = serviceCombos + industryCombos;
 
-if (totalCombos !== 210) {
-  fail(`Expected 210 combo URLs, would generate ${totalCombos} (${serviceCombos} service + ${industryCombos} industry)`);
+if (totalCombos !== 420) {
+  fail(`Expected 420 combo URLs, would generate ${totalCombos} (${serviceCombos} service + ${industryCombos} industry)`);
 } else {
-  pass(`210 combo URLs (${serviceCombos} service + ${industryCombos} industry)`);
+  pass(`420 combo URLs (${serviceCombos} service + ${industryCombos} industry)`);
 }
 
 pass(`${locations.length} city hub URLs + 1 /locations hub = ${locations.length + 1} hub pages`);
@@ -142,8 +142,8 @@ pass(
   `Sitemap segments: core=${segmentCounts.core}, locations=${segmentCounts.locations}, content=${segmentCounts.content} (${totalSitemapUrls} total)`,
 );
 
-if (segmentCounts.locations < 220) {
-  fail(`Expected at least 220 location sitemap URLs (hubs + combos), got ${segmentCounts.locations}`);
+if (segmentCounts.locations < 440) {
+  fail(`Expected at least 440 location sitemap URLs (hubs + combos), got ${segmentCounts.locations}`);
 }
 
 for (const location of locations) {

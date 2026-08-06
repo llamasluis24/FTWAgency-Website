@@ -9,7 +9,7 @@ export const coronaCa: Location = {
   region: "Southern California",
   metro: "Riverside-San Bernardino-Ontario",
   geo: { lat: 33.8753, lng: -117.5664 },
-  nearbySlugs: ["riverside-ca", "ontario-ca", "rancho-cucamonga-ca"],
+  nearbySlugs: ["riverside-ca", "ontario-ca", "rancho-cucamonga-ca", "moreno-valley-ca"],
   publish: { status: "full", publishedAt: "2026-07-05", lastModified: "2026-07-05" },
   heroHeadline: "Growth Systems for *Corona* Businesses.",
   heroSub:

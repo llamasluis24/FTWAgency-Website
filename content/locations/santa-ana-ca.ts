@@ -9,7 +9,7 @@ export const santaAnaCa: Location = {
   region: "Southern California",
   metro: "Los Angeles-Long Beach-Anaheim",
   geo: { lat: 33.7455, lng: -117.8677 },
-  nearbySlugs: ["irvine-ca", "anaheim-ca", "los-angeles-ca"],
+  nearbySlugs: ["irvine-ca", "anaheim-ca", "huntington-beach-ca", "fullerton-ca"],
   publish: { status: "full", publishedAt: "2026-07-05", lastModified: "2026-07-05" },
   heroHeadline: "Growth Systems for *Santa Ana* Businesses.",
   heroSub:

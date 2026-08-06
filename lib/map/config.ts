@@ -3,7 +3,7 @@ export const SOCAL_BOUNDS = {
   west: -118.55,
   south: 32.55,
   east: -116.85,
-  north: 34.15,
+  north: 34.20,
 } as const;
 
 /** Mapbox style — dark base aligned with FTW surface language. */
