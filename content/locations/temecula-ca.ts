@@ -66,7 +66,7 @@ export const temeculaCa: Location = {
     "Menifee",
   ],
   featuredCaseStudies: [],
-  featuredProjects: [],
+  featuredProjects: ["mendozer-x-earthworks"],
   featuredArticles: ["local-seo-guide-2026", "review-velocity-system"],
   faqs: [
     {

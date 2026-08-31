@@ -66,7 +66,7 @@ export const coronaCa: Location = {
     "Anaheim Hills",
   ],
   featuredCaseStudies: [],
-  featuredProjects: [],
+  featuredProjects: ["fdc-fire"],
   featuredArticles: ["local-seo-guide-2026", "website-conversion-checklist"],
   faqs: [
     {

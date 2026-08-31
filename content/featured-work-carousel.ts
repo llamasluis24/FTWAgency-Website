@@ -111,6 +111,24 @@ export const featuredWorkCarouselItems: FeaturedWorkItem[] = [
       { value: "Events", label: "& trip planner tools" },
     ],
   },
+  {
+    id: "mendozer-x-earthworks",
+    type: "website",
+    name: "Mendozer X Earthworks Inc.",
+    url: "https://www.mendozerxearthworks.com/",
+    domain: "mendozerxearthworks.com",
+    category: "Commercial Earthwork",
+    tags: ["Website", "Construction", "B2B"],
+    description:
+      "Licensed commercial earthwork site for grading, excavation, concrete, and asphalt — built for developers, GCs, and civil teams across the Inland Empire, Orange County, and LA County.",
+    image: "/showcases/websites/mendozer-x-earthworks.jpg",
+    imageAlt:
+      "Mendozer X Earthworks commercial earthwork website hero with heavy equipment on a grading site",
+    stats: [
+      { value: "#1069854", label: "licensed commercial contractor" },
+      { value: "4", label: "core sitework service lines" },
+    ],
+  },
   allAroundMobileHomeService,
   {
     id: "wpconvert-ai",
@@ -163,6 +181,24 @@ export const featuredWorkCarouselItems: FeaturedWorkItem[] = [
     stats: [
       { value: "Real-time", label: "market overlay" },
       { value: "Zero", label: "risk paper trading" },
+    ],
+  },
+  {
+    id: "fdc-fire",
+    type: "website",
+    name: "FDC Fire Sprinklers Corp.",
+    url: "https://www.fdcfire.com/",
+    domain: "fdcfire.com",
+    category: "Fire Protection",
+    tags: ["Website", "Construction", "Fire Sprinklers"],
+    description:
+      "Family-owned fire sprinkler contractor site — commercial installation, inspections, tenant improvements, repairs, and residential ADU support across Southern California.",
+    image: "/showcases/websites/fdc-fire.jpg",
+    imageAlt:
+      "FDC Fire Sprinklers commercial fire protection website hero with warehouse sprinkler installation",
+    stats: [
+      { value: "C-16", label: "licensed fire protection contractor" },
+      { value: "2", label: "commercial & residential tracks" },
     ],
   },
   {

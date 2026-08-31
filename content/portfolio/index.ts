@@ -11,6 +11,8 @@ import { rigoDemolitionBrentwood } from "./rigo-demolition-brentwood";
 import { rigoDemolitionPasadena } from "./rigo-demolition-pasadena";
 import { vertexServices } from "./vertex-services";
 import { visitRiverside } from "./visit-riverside";
+import { mendozerXEarthworks } from "./mendozer-x-earthworks";
+import { fdcFire } from "./fdc-fire";
 import { wpconvertAi } from "./wpconvert-ai";
 
 /** All shipped websites, social reels & software featured across the site. */
@@ -28,4 +30,6 @@ export const projects: Project[] = [
   calStarMobilehomecrm,
   ghosttrade,
   vertexServices,
+  mendozerXEarthworks,
+  fdcFire,
 ].map((p) => ProjectSchema.parse(p));

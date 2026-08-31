@@ -66,7 +66,7 @@ export const riversideCa: Location = {
     "Norco",
   ],
   featuredCaseStudies: ["visit-riverside", "farmhouse-collective"],
-  featuredProjects: ["visit-riverside", "farmhouse-collective"],
+  featuredProjects: ["visit-riverside", "farmhouse-collective", "mendozer-x-earthworks", "fdc-fire"],
   featuredArticles: ["local-seo-guide-2026", "review-velocity-system"],
   faqs: [
     {

@@ -66,7 +66,7 @@ export const fontanaCa: Location = {
     "San Bernardino",
   ],
   featuredCaseStudies: [],
-  featuredProjects: [],
+  featuredProjects: ["mendozer-x-earthworks"],
   featuredArticles: ["local-seo-guide-2026", "missed-call-text-back-roi"],
   faqs: [
     {

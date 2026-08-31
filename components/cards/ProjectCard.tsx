@@ -1,3 +1,4 @@
+import { ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/Badge";
 import { MockPanel } from "@/components/ui/MockPanel";
 import { cn } from "@/lib/utils";
@@ -56,6 +57,17 @@ export function ProjectCard({ data }: { data: ProjectCardData }) {
             </div>
           ))}
         </div>
+        {project.liveUrl && (
+          <a
+            href={project.liveUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-accent transition-colors hover:text-accent/80"
+          >
+            Visit Website
+            <ArrowUpRight className="h-3.5 w-3.5" />
+          </a>
+        )}
       </div>
     </article>
   );

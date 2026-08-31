@@ -216,6 +216,7 @@ export const ProjectSchema = z.object({
   technologies: z.array(z.string()),
   testimonial: TestimonialSchema,
   featured: z.boolean().default(false),
+  liveUrl: z.string().url().optional(),
 });
 
 /* ------------------------------------------------------------------ */
