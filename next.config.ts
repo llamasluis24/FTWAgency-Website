@@ -18,6 +18,25 @@ const legacyLocationRedirects = LEGACY_LOCATION_SLUGS.flatMap((slug) => [
 
 const nextConfig: NextConfig = {
   outputFileTracingRoot: __dirname,
+  webpack: (config, { dev }) => {
+    if (dev) {
+      config.watchOptions = {
+        ...config.watchOptions,
+        ignored: [
+          "**/node_modules/**",
+          "**/.git/**",
+          "**/.next/**",
+          "**/public/showcases/**",
+          "**/public/locations/heroes/**",
+          "**/exports/**",
+          "**/*.mp4",
+          "**/*.mov",
+          "**/*.zip",
+        ],
+      };
+    }
+    return config;
+  },
   async redirects() {
     return [
       ...legacyLocationRedirects,

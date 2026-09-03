@@ -6,6 +6,7 @@ export const visitRiverside: Project = {
   portfolioKind: "website",
   industry: "professional-services",
   services: ["website-design-development", "seo", "custom-software"],
+  liveUrl: "https://visitriverside.com/",
   description:
     "City tourism hub for Riverside, CA — things to do, dining, events, trip planning, and business listings in one searchable destination guide.",
   screenshots: [

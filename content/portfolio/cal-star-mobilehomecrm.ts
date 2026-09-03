@@ -6,6 +6,7 @@ export const calStarMobilehomecrm: Project = {
   portfolioKind: "software",
   industry: "home-services",
   services: ["custom-software", "business-automation", "mobile-app-development"],
+  liveUrl: "https://www.mobilehomecrm.com/",
   description:
     "Fully configured MobileHomeCRM instance for Cal Star Mobile Home Construction — dashboard, estimates, proposals, and sales pipeline in daily use.",
   screenshots: [

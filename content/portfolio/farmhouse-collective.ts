@@ -6,6 +6,7 @@ export const farmhouseCollective: Project = {
   portfolioKind: "website",
   industry: "restaurants-hospitality",
   services: ["website-design-development", "seo"],
+  liveUrl: "https://farmhousecollective.com/",
   description:
     "Riverside food hall and event collective site with calendar programming, vendor lineup, and brand storytelling for a multi-concept destination.",
   screenshots: [

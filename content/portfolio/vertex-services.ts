@@ -6,6 +6,7 @@ export const vertexServices: Project = {
   portfolioKind: "website",
   industry: "home-services",
   services: ["website-design-development", "seo", "google-business-profile"],
+  liveUrl: "https://vertex-services.co/",
   description:
     "Commercial ice and beverage equipment maintenance site built to communicate service coverage, credibility, and fast quote requests.",
   screenshots: [
