@@ -1,8 +1,15 @@
 # Campaign Page Specification
 
-Mandatory section order and design conventions for all FTW paid landing pages.
+Mandatory section order and design conventions for FTW paid landing pages.
 
-## Page structure (fixed order)
+There are two page types:
+
+1. **Geo campaign LP** — `/campaigns/[service]/[city]` (full conversion page)
+2. **Service showcase LP** — `/campaigns/website-design` (shorter capability showcase)
+
+---
+
+## Geo campaign page structure (fixed order)
 
 1. **Minimal header** — Logo, optional contact, primary CTA (no mega nav)
 2. **Hero** — Eyebrow (SERVICE • CITY, ST), headline, subheadline, primary + secondary CTA, hero visual
@@ -19,6 +26,27 @@ Mandatory section order and design conventions for all FTW paid landing pages.
 13. **Sticky CTA** — Mobile-only, appears when form is off-screen
 14. **Minimal footer** — FTW Agency, Privacy, Terms, Accessibility, Contact
 
+---
+
+## Service showcase LP structure (shorter)
+
+Route: `/campaigns/website-design`
+
+Config: `content/campaigns/website-design-showcase.ts`  
+Template: `components/campaigns/showcase/WebsiteShowcaseTemplate.tsx`
+
+1. **Minimal header** — Primary CTA: “Want a website that looks like this?”
+2. **Capability hero** — Non-geo headline; secondary CTA scrolls to interactive demos
+3. **GSAP scroll story** — Capability-framed scroll cinema (pinned scrubbed film); reduced-motion = stacked cards
+4. **Interactivity demos** — Vertical stack of uniform mini-case study cards (maps, sliders, funnels, workflows)
+5. **Website gallery** — Mixed live portfolio cards with Visit Website links
+6. **Lead form** — Same campaign form chrome; `campaign_name=website_design_showcase`
+7. **Final CTA + Sticky CTA + Minimal footer**
+
+No case study, process, FAQ, or before/after on showcase pages.
+
+---
+
 ## Header rules
 
 - FTW inverted logo (`/brand/logo-inverted.png`)
@@ -27,20 +55,20 @@ Mandatory section order and design conventions for all FTW paid landing pages.
 
 ## CTA language
 
-Default primary CTA: **Get Your Website Plan**
+**Geo pages:** Get Your Website Plan / Get a Website Strategy Call
 
-Alternates for A/B tests: **Get a Website Strategy Call**
+**Showcase pages:** Want a website that looks like this?
 
-Secondary CTA: **View Our Work** → `/portfolio` (new tab)
+Secondary (showcase): See interactive demos → `#showcase-demos`
 
 ## Visual conventions
 
 - Dark FTW theme (`bg-bg`, `text-heading`, `text-accent`)
 - `font-display` for headings
 - Accent buttons: `bg-accent text-[#04222b]`
-- Card surfaces: `card-surface`, `border-white/10`
+- Card surfaces: shared showcase chrome (`border-white/10`, ~1.25rem radius)
 - Hero visual: browser mockup frame with real FTW project screenshot — no stock photography
-- Lazy-load heavy components (before/after slider)
+- GSAP showcase uses FTW dark cinematic theme (capability framing; demo narrative may use client film)
 
 ## Form fields (standard variant)
 
@@ -56,8 +84,9 @@ Hidden: attribution fields, campaign metadata, Web3Forms access key, honeypot
 
 - Never invent testimonials, logos, metrics, or client quotes
 - Pull case studies and quotes from existing approved repository content
-- City + service must appear naturally in hero, copy, and form context — no keyword stuffing
+- City + service must appear naturally on geo pages — no keyword stuffing
 - Do not link prominently to competing organic local SEO URLs
+- Calculator ranges on showcase pages are educational demos only
 
 ## Accessibility
 
@@ -65,10 +94,10 @@ Hidden: attribution fields, campaign metadata, Web3Forms access key, honeypot
 - Form labels on all inputs
 - FAQ accordion with `aria-expanded` / `aria-controls`
 - Visible focus states
-- Respect `prefers-reduced-motion` (before/after component)
+- Respect `prefers-reduced-motion` (before/after + GSAP pin story)
 
 ## Performance
 
-- Server-render page shell; client boundaries only for tracking, form, sticky CTA, before/after
+- Server-render page shell; client boundaries for tracking, form, sticky CTA, GSAP, demos
 - Optimize hero image with `priority` + appropriate `sizes`
-- Avoid unnecessary Framer Motion on campaign pages
+- Kill ScrollTrigger on unmount

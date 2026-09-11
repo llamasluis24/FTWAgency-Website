@@ -13,8 +13,8 @@ export const visitRiverside: Project = {
     {
       title: "City discovery homepage",
       kind: "website",
-      src: "/showcases/websites/visit-riverside/category-things-to-do.png",
-      alt: "Visit Riverside tourism website hero and city discovery experience",
+      src: "/showcases/websites/visit-riverside/homepage-hero.png",
+      alt: "Visit Riverside tourism website homepage hero",
     },
     { title: "Category explorer", kind: "website" },
     { title: "Interactive city map", kind: "dashboard" },

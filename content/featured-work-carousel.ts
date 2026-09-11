@@ -112,6 +112,23 @@ export const featuredWorkCarouselItems: FeaturedWorkItem[] = [
     ],
   },
   {
+    id: "vote-christen",
+    type: "website",
+    name: "Vote Christen",
+    url: "https://www.votechristen.com/",
+    domain: "votechristen.com",
+    category: "Civic Campaign",
+    tags: ["Website", "GSAP", "Campaign"],
+    description:
+      "Campaign website with scroll-driven storytelling, priorities, endorsements, and voter conversion paths for Western Municipal Water District Division 2.",
+    image: "/showcases/websites/vote-christen.jpg",
+    imageAlt: "Vote Christen campaign website hero — Affordable Water. Reliable Future.",
+    stats: [
+      { value: "GSAP", label: "scroll storytelling" },
+      { value: "Live", label: "endorsement & donate flows" },
+    ],
+  },
+  {
     id: "mendozer-x-earthworks",
     type: "website",
     name: "Mendozer X Earthworks Inc.",

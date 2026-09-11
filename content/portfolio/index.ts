@@ -14,6 +14,7 @@ import { visitRiverside } from "./visit-riverside";
 import { mendozerXEarthworks } from "./mendozer-x-earthworks";
 import { fdcFire } from "./fdc-fire";
 import { wpconvertAi } from "./wpconvert-ai";
+import { voteChristen } from "./vote-christen";
 
 /** All shipped websites, social reels & software featured across the site. */
 export const projects: Project[] = [
@@ -32,4 +33,5 @@ export const projects: Project[] = [
   vertexServices,
   mendozerXEarthworks,
   fdcFire,
+  voteChristen,
 ].map((p) => ProjectSchema.parse(p));

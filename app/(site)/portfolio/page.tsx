@@ -33,6 +33,8 @@ export default function PortfolioPage() {
       <CTASection
         headline="Want Results Like *These*?"
         sub="Every project here started with a strategy call. Book yours and we'll map what's possible for your business."
+        showSecondaryCta={false}
+        primaryProminent
       />
     </>
   );

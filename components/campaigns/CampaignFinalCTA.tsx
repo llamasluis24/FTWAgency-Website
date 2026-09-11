@@ -3,9 +3,9 @@
 import { Container, Section } from "@/components/layout/Section";
 import { getCampaignFormAnchorId } from "@/lib/campaigns/metadata";
 import { fireCampaignPrimaryCtaClick } from "@/lib/campaigns/conversions";
-import type { ResolvedCampaignPage } from "@/content/campaigns/types";
+import type { CampaignChromePage } from "@/content/campaigns/website-design-showcase";
 
-export function CampaignFinalCTA({ page }: { page: ResolvedCampaignPage }) {
+export function CampaignFinalCTA({ page }: { page: CampaignChromePage }) {
   const formId = getCampaignFormAnchorId();
 
   return (
@@ -13,11 +13,11 @@ export function CampaignFinalCTA({ page }: { page: ResolvedCampaignPage }) {
       <Container>
         <div className="mx-auto max-w-3xl rounded-2xl border border-accent/20 bg-accent/5 px-6 py-12 text-center md:px-12">
           <h2 className="font-display text-3xl font-semibold text-heading md:text-4xl">
-            Ready for a Website That Works Harder for Your Business?
+            {page.finalHeadline ?? "Ready for a Website That Works Harder for Your Business?"}
           </h2>
           <p className="mt-4 text-body">
-            Get a clear website plan built around your goals, your market, and the customers you
-            want to attract.
+            {page.finalSubheadline ??
+              "Get a clear website plan built around your goals, your market, and the customers you want to attract."}
           </p>
           <a
             href={`#${formId}`}

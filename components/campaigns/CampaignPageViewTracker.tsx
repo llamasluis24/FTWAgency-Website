@@ -2,9 +2,9 @@
 
 import { useEffect } from "react";
 import { fireCampaignPageView } from "@/lib/campaigns/conversions";
-import type { ResolvedCampaignPage } from "@/content/campaigns/types";
+import type { CampaignChromePage } from "@/content/campaigns/website-design-showcase";
 
-export function CampaignPageViewTracker({ page }: { page: ResolvedCampaignPage }) {
+export function CampaignPageViewTracker({ page }: { page: CampaignChromePage }) {
   useEffect(() => {
     fireCampaignPageView({
       campaignName: page.trackingCampaignName,

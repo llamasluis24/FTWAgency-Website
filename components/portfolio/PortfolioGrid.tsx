@@ -43,7 +43,7 @@ function PortfolioStats({ projects }: { projects: ProjectCardData[] }) {
     <div className="mb-10 grid gap-4 rounded-2xl border border-white/8 bg-surface/60 p-6 sm:grid-cols-2 lg:grid-cols-4">
       {stats.map((stat) => (
         <div key={stat.label} className="text-center sm:text-left">
-          <p className="tnum font-display text-3xl font-bold text-accent">{stat.value}</p>
+          <p className="tnum font-display text-3xl font-bold text-[#60d8b8]">{stat.value}</p>
           <p className="mt-1 text-sm text-muted">{stat.label}</p>
         </div>
       ))}
@@ -68,6 +68,8 @@ function PortfolioSection({
   kind: "website" | "social-media" | "software";
   items: ProjectCardData[];
 }) {
+  if (items.length === 0) return null;
+
   const copy = SECTION_COPY[kind];
   return (
     <section className="scroll-mt-28">
@@ -117,11 +119,11 @@ export function PortfolioGrid({ projects }: { projects: ProjectCardData[] }) {
         </button>
         <button
           type="button"
-          className={tab(view === "website")}
-          onClick={() => setView("website")}
+          className={tab(view === "software")}
+          onClick={() => setView("software")}
         >
-          Websites
-          <span className="ml-1.5 text-xs opacity-70">({websites.length})</span>
+          Software
+          <span className="ml-1.5 text-xs opacity-70">({software.length})</span>
         </button>
         <button
           type="button"
@@ -133,26 +135,27 @@ export function PortfolioGrid({ projects }: { projects: ProjectCardData[] }) {
         </button>
         <button
           type="button"
-          className={tab(view === "software")}
-          onClick={() => setView("software")}
+          className={tab(view === "website")}
+          onClick={() => setView("website")}
         >
-          Software
-          <span className="ml-1.5 text-xs opacity-70">({software.length})</span>
+          Websites
+          <span className="ml-1.5 text-xs opacity-70">({websites.length})</span>
         </button>
       </div>
 
       {view === "all" ? (
         <div className="space-y-20 md:space-y-24">
-          <PortfolioSection kind="website" items={websites} />
-          <PortfolioSection kind="social-media" items={socialMedia} />
+          {/* Software + content first so they aren’t buried under website cards */}
           <PortfolioSection kind="software" items={software} />
+          <PortfolioSection kind="social-media" items={socialMedia} />
+          <PortfolioSection kind="website" items={websites} />
         </div>
-      ) : view === "website" ? (
-        <PortfolioSection kind="website" items={websites} />
+      ) : view === "software" ? (
+        <PortfolioSection kind="software" items={software} />
       ) : view === "social-media" ? (
         <PortfolioSection kind="social-media" items={socialMedia} />
       ) : (
-        <PortfolioSection kind="software" items={software} />
+        <PortfolioSection kind="website" items={websites} />
       )}
     </div>
   );

@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import Image from "next/image";
 import { MapPin, Search, Share2, Navigation } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -51,26 +52,46 @@ export function PlatformScreenshot({ className }: { className?: string }) {
 export function CategoryGridMock({
   activeIndex = -1,
   large = false,
+  interactive = false,
 }: {
   activeIndex?: number;
   large?: boolean;
+  interactive?: boolean;
 }) {
+  const [selected, setSelected] = useState(activeIndex);
+
   return (
     <div className={cn("grid grid-cols-2 gap-2 sm:grid-cols-4", large ? "gap-3 p-6 md:p-8" : "p-4")}>
-      {visitRiversideCategoryExplorer.map((tab, i) => (
-        <div
-          key={tab.id}
-          className={cn(
-            "rounded-lg border px-2 py-3 text-center font-semibold uppercase tracking-wide transition-colors",
-            large ? "text-[11px] sm:text-xs" : "text-[10px] sm:text-[11px]",
-            i === activeIndex
-              ? "border-accent/40 bg-accent/10 text-[#0B0F14]"
-              : "border-[#e8e4dc] bg-[#f7f4ee] text-[#4a4038]",
-          )}
-        >
-          {tab.label}
-        </div>
-      ))}
+      {visitRiversideCategoryExplorer.map((tab, i) => {
+        const isActive = (interactive ? selected : activeIndex) === i;
+        const className = cn(
+          "rounded-lg border px-2 py-3 text-center font-semibold uppercase tracking-wide transition-colors",
+          large ? "text-[11px] sm:text-xs" : "text-[10px] sm:text-[11px]",
+          isActive
+            ? "border-accent/40 bg-accent/10 text-[#0B0F14]"
+            : "border-[#e8e4dc] bg-[#f7f4ee] text-[#4a4038]",
+          interactive && "cursor-pointer hover:border-accent/30",
+        );
+
+        if (interactive) {
+          return (
+            <button
+              key={tab.id}
+              type="button"
+              onClick={() => setSelected(i)}
+              className={className}
+            >
+              {tab.label}
+            </button>
+          );
+        }
+
+        return (
+          <div key={tab.id} className={className}>
+            {tab.label}
+          </div>
+        );
+      })}
     </div>
   );
 }
@@ -275,7 +296,7 @@ export function JourneyVisual({ stepId, variant = "default" }: { stepId: string;
     case "explore":
       return (
         <BrowserFrame className={cn(large && "h-full", frameClass)}>
-          <CategoryGridMock activeIndex={2} large={large} />
+          <CategoryGridMock activeIndex={2} large={large} interactive={large} />
         </BrowserFrame>
       );
     case "choose":

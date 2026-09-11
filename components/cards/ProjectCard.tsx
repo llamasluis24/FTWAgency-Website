@@ -17,7 +17,8 @@ export interface ProjectCardData {
 
 export function ProjectCard({ data }: { data: ProjectCardData }) {
   const { project, industryLabel, serviceLabels } = data;
-  const isReel = project.screenshots[0]?.kind === "reel";
+  const screenshot = project.screenshots[0];
+  const isReel = screenshot?.kind === "reel";
 
   return (
     <article className="card-surface flex h-full flex-col overflow-hidden">
@@ -27,10 +28,16 @@ export function ProjectCard({ data }: { data: ProjectCardData }) {
           isReel && "flex justify-center py-6",
         )}
       >
-        <MockPanel
-          screenshot={project.screenshots[0]}
-          className={cn("!border-0 !bg-transparent", isReel && "w-full max-w-[220px]")}
-        />
+        {screenshot ? (
+          <MockPanel
+            screenshot={screenshot}
+            className={cn("!border-0 !bg-transparent", isReel && "w-full max-w-[220px]")}
+          />
+        ) : (
+          <div className="flex h-44 items-center justify-center rounded-lg bg-white/5 text-sm text-muted">
+            {project.title}
+          </div>
+        )}
       </div>
       <div className="flex flex-1 flex-col p-6">
         <div className="mb-3 flex flex-wrap gap-2">

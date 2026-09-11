@@ -11,9 +11,9 @@ import {
 import { fireCampaignFormStart } from "@/lib/campaigns/conversions";
 import { Container, Section } from "@/components/layout/Section";
 import { getCampaignFormAnchorId } from "@/lib/campaigns/metadata";
-import type { ResolvedCampaignPage } from "@/content/campaigns/types";
+import type { CampaignChromePage } from "@/content/campaigns/website-design-showcase";
 
-export function CampaignLeadForm({ page }: { page: ResolvedCampaignPage }) {
+export function CampaignLeadForm({ page }: { page: CampaignChromePage }) {
   const router = useRouter();
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -47,7 +47,7 @@ export function CampaignLeadForm({ page }: { page: ResolvedCampaignPage }) {
 
     formData.append("campaign_name", page.trackingCampaignName);
     formData.append("campaign_service", page.service);
-    formData.append("campaign_city", page.city);
+    if (page.city) formData.append("campaign_city", page.city);
     formData.append("campaign_variant", page.experimentVariant);
 
     try {
@@ -64,7 +64,7 @@ export function CampaignLeadForm({ page }: { page: ResolvedCampaignPage }) {
       const thankYouUrl = new URL(page.thankYouDestination, window.location.origin);
       thankYouUrl.searchParams.set("campaign", page.trackingCampaignName);
       thankYouUrl.searchParams.set("service", page.service);
-      thankYouUrl.searchParams.set("city", page.city);
+      if (page.city) thankYouUrl.searchParams.set("city", page.city);
       router.push(thankYouUrl.pathname + thankYouUrl.search);
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong. Please try again.");

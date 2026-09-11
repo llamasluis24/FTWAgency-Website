@@ -4,7 +4,7 @@ import type { CampaignAttribution } from "./attribution";
 export function fireCampaignFormConversion(args: {
   campaignName: string;
   service: string;
-  city: string;
+  city?: string;
   variant?: string;
   attribution?: CampaignAttribution;
 }) {
@@ -31,7 +31,7 @@ export function fireCampaignFormConversion(args: {
 export function fireCampaignPageView(args: {
   campaignName: string;
   service: string;
-  city: string;
+  city?: string;
   variant?: string;
   pagePath: string;
 }) {
@@ -47,7 +47,7 @@ export function fireCampaignPageView(args: {
 export function fireCampaignFormStart(args: {
   campaignName: string;
   service: string;
-  city: string;
+  city?: string;
 }) {
   trackCampaignEvent(CAMPAIGN_EVENTS.FORM_START, {
     campaign_name: args.campaignName,

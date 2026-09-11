@@ -6,6 +6,7 @@ import { useSearchParams } from "next/navigation";
 import { CheckCircle2 } from "lucide-react";
 import { siteConfig } from "@/content/site";
 import { getCampaignPageByName } from "@/content/campaigns/campaign-pages";
+import { websiteDesignShowcase } from "@/content/campaigns/website-design-showcase";
 import { getCampaignAttribution } from "@/lib/campaigns/attribution";
 import { fireCampaignFormConversion, fireCampaignCalendarOpen } from "@/lib/campaigns/conversions";
 import { campaignTrackingConfig } from "@/lib/campaigns/tracking";
@@ -17,21 +18,25 @@ export function CampaignThankYouClient() {
   const conversionFired = useRef(false);
 
   const campaignName = searchParams.get("campaign") ?? "";
-  const page = campaignName ? getCampaignPageByName(campaignName) : null;
+  const serviceParam = searchParams.get("service") ?? "";
+  const cityParam = searchParams.get("city") ?? undefined;
+  const geoPage = campaignName ? getCampaignPageByName(campaignName) : null;
+  const isShowcase = campaignName === websiteDesignShowcase.trackingCampaignName;
+  const backPath = geoPage?.path ?? (isShowcase ? websiteDesignShowcase.path : null);
   const bookingUrl = campaignTrackingConfig.bookingUrl;
 
   useEffect(() => {
-    if (conversionFired.current || !page) return;
+    if (conversionFired.current || !campaignName) return;
     conversionFired.current = true;
 
     fireCampaignFormConversion({
-      campaignName: page.trackingCampaignName,
-      service: page.service,
-      city: page.city,
-      variant: page.experimentVariant,
+      campaignName: geoPage?.trackingCampaignName ?? campaignName,
+      service: geoPage?.service ?? serviceParam,
+      city: geoPage?.city ?? cityParam,
+      variant: geoPage?.experimentVariant,
       attribution: getCampaignAttribution(),
     });
-  }, [page]);
+  }, [campaignName, cityParam, geoPage, serviceParam]);
 
   return (
     <>
@@ -53,7 +58,7 @@ export function CampaignThankYouClient() {
                 rel="noopener noreferrer"
                 onClick={() =>
                   fireCampaignCalendarOpen({
-                    campaignName: page?.trackingCampaignName ?? campaignName,
+                    campaignName: geoPage?.trackingCampaignName ?? campaignName,
                   })
                 }
                 className="mt-8 inline-flex items-center justify-center rounded-[10px] bg-accent px-8 py-3.5 font-display text-base font-semibold text-[#04222b] transition-all hover:shadow-[0_0_32px_rgba(0,212,255,0.45)]"
@@ -68,9 +73,9 @@ export function CampaignThankYouClient() {
                 </a>
               </p>
             )}
-            {page ? (
+            {backPath ? (
               <Link
-                href={page.path}
+                href={backPath}
                 className="mt-6 inline-block text-sm text-muted transition-colors hover:text-accent"
               >
                 ← Back to campaign page

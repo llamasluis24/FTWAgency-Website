@@ -6,6 +6,7 @@ export const allAroundMobileHomeService: Project = {
   portfolioKind: "website",
   industry: "home-services",
   services: ["website-design-development", "seo"],
+  liveUrl: "https://www.allaroundmobilehomeservice.com/",
   description:
     "Conversion-focused mobile home repair site with clear service categories, estimate forms, and trust proof built to turn local searches into booked jobs.",
   screenshots: [

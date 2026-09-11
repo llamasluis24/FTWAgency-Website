@@ -21,7 +21,16 @@ export function ProductFrame({
   return (
     <motion.div
       initial={reduceMotion ? false : { opacity: 0, y: 16 }}
-      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      animate={
+        reduceMotion || active
+          ? { opacity: 1, y: 0 }
+          : undefined
+      }
+      whileInView={
+        reduceMotion || active
+          ? undefined
+          : { opacity: 1, y: 0 }
+      }
       viewport={{ once: true, margin: "-60px" }}
       transition={{ duration: 0.55, ease: EASE }}
       className={cn(

@@ -13,7 +13,7 @@ export const vertexServices: Project = {
     {
       title: "Commercial services homepage",
       kind: "website",
-      src: "/showcases/websites/vertex-services.jpg",
+      src: "/showcases/websites/vertex-services/home.png",
       alt: "Vertex Services commercial equipment maintenance website hero",
     },
     { title: "Service area architecture", kind: "website" },

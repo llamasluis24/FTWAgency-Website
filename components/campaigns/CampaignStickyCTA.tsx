@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { fireCampaignPrimaryCtaClick } from "@/lib/campaigns/conversions";
 import { getCampaignFormAnchorId } from "@/lib/campaigns/metadata";
-import type { ResolvedCampaignPage } from "@/content/campaigns/types";
+import type { CampaignChromePage } from "@/content/campaigns/website-design-showcase";
 
-export function CampaignStickyCTA({ page }: { page: ResolvedCampaignPage }) {
+export function CampaignStickyCTA({ page }: { page: CampaignChromePage }) {
   const [visible, setVisible] = useState(false);
   const formId = getCampaignFormAnchorId();
 

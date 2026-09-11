@@ -5,9 +5,9 @@ import Link from "next/link";
 import { siteConfig } from "@/content/site";
 import { getCampaignFormAnchorId } from "@/lib/campaigns/metadata";
 import { fireCampaignPrimaryCtaClick } from "@/lib/campaigns/conversions";
-import type { ResolvedCampaignPage } from "@/content/campaigns/types";
+import type { CampaignChromePage } from "@/content/campaigns/website-design-showcase";
 
-export function CampaignHeader({ page }: { page: ResolvedCampaignPage }) {
+export function CampaignHeader({ page }: { page: CampaignChromePage }) {
   const formId = getCampaignFormAnchorId();
 
   const handlePrimaryClick = () => {
