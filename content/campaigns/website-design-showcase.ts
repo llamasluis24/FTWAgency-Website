@@ -1,5 +1,13 @@
 import type { CampaignExperimentVariant, CampaignServiceSlug } from "./types";
 
+export type WebsiteGrowthStageId =
+  | "website"
+  | "services"
+  | "seo"
+  | "locations"
+  | "aio"
+  | "convert";
+
 export interface WebsiteShowcaseGsapPanel {
   number: string;
   navLabel: string;
@@ -7,13 +15,43 @@ export interface WebsiteShowcaseGsapPanel {
   headline: string;
   paragraphs: string[];
   bottomLine: string;
-  /** Poster still shown under scrubbed / playback video. */
-  image: string;
-  imageAlt: string;
-  /** Desktop scroll-scrub encode (dense keyframes). */
-  videoScrubSrc: string;
-  /** Mobile autoplay encode. */
-  videoPlaybackSrc: string;
+  /** Maps panel to GrowthSystemStage visual phase. */
+  stageId: WebsiteGrowthStageId;
+}
+
+export interface WebsiteShowcasePillar {
+  title: string;
+  explain: string;
+  businessValue: string;
+}
+
+export interface WebsiteShowcaseFaqItem {
+  question: string;
+  answer: string;
+}
+
+export interface WebsiteShowcaseProcessStep {
+  step: string;
+  title: string;
+  body: string;
+}
+
+export interface WebsiteShowcaseAioSection {
+  eyebrow: string;
+  title: string;
+  lede: string;
+  education: {
+    heading: string;
+    body: string;
+    bullets: string[];
+  };
+  urgency: {
+    heading: string;
+    body: string;
+    punchLine: string;
+  };
+  buildPoints: { title: string; body: string }[];
+  ctaLabel: string;
 }
 
 export interface WebsiteShowcaseConfig {
@@ -35,6 +73,10 @@ export interface WebsiteShowcaseConfig {
   noindex: boolean;
   gallerySlugs: string[];
   gsapPanels: WebsiteShowcaseGsapPanel[];
+  pillars: WebsiteShowcasePillar[];
+  aioSection: WebsiteShowcaseAioSection;
+  processSteps: WebsiteShowcaseProcessStep[];
+  faq: WebsiteShowcaseFaqItem[];
 }
 
 export const websiteDesignShowcase: WebsiteShowcaseConfig = {
@@ -42,16 +84,16 @@ export const websiteDesignShowcase: WebsiteShowcaseConfig = {
   path: "/campaigns/website-design",
   campaignName: "website_design_showcase",
   trackingCampaignName: "website_design_showcase",
-  eyebrow: "WEBSITE DESIGN • CAPABILITY SHOWCASE",
-  headline: "Websites That *Move*, Convert, and Stand Out",
+  eyebrow: "WEBSITE DESIGN",
+  headline: "Your Website Should Be the *Foundation* of Your Growth",
   subheadline:
-    "Scroll cinema, interactive tools, and conversion craft — built so visitors stop, explore, and take action.",
-  primaryCTA: "Want a website that looks like this?",
-  secondaryCTA: "See interactive demos",
-  secondaryHref: "#showcase-demos",
-  metaTitle: "Website Design Showcase | FTW Agency",
+    "FTW builds websites with SEO structure, dedicated service pages, AI Search readiness, conversion pathways, analytics, and room to scale marketing and automation later.",
+  primaryCTA: "Get Your Website Plan",
+  secondaryCTA: "See How It Works",
+  secondaryHref: "#growth-system",
+  metaTitle: "Website Design for Growth | FTW Agency",
   metaDescription:
-    "See how FTW Agency builds conversion-focused websites — scroll storytelling, interactive tools, maps, and a portfolio of live client sites.",
+    "FTW builds websites as growth infrastructure — SEO, service pages, location architecture, AI Search readiness, and conversion systems that turn traffic into opportunities.",
   formSubject: "[Campaign Lead] Website Design Showcase",
   thankYouDestination: "/campaigns/thank-you",
   experimentVariant: "control",
@@ -60,72 +102,224 @@ export const websiteDesignShowcase: WebsiteShowcaseConfig = {
     "vote-christen",
     "farmhouse-collective",
     "visit-riverside",
+    "cal-star-mobile",
     "vertex-services",
     "mendozer-x-earthworks",
     "fdc-fire",
     "all-around-mobile-home-service",
   ],
-  /** Scroll-story demo panels. Copy sells website capability; film is the motion vehicle. */
+  /** Sticky-chapter growth story — visual stage + business-value copy. */
   gsapPanels: [
     {
       number: "01",
-      navLabel: "Presence",
-      eyebrow: "Brand presence",
-      headline: "Make Your Brand Impossible to Ignore",
+      navLabel: "Website",
+      eyebrow: "The foundation",
+      headline: "Your Website Is Where Growth Starts",
       paragraphs: [
-        "Your site is often the first handshake with a customer. We design heroes, typography, and layout so the brand feels premium from the first second—not generic, not template-built.",
-        "When visitors instantly understand who you are and why you matter, they trust you enough to keep exploring—and convert.",
+        "Customers, search engines, and AI systems all land on your site first. If that foundation looks generic or unclear, every marketing dollar you spend has a weaker place to land.",
+        "We build the digital home for your brand — structure, messaging, and presentation that make you look like the company people want to hire.",
       ],
-      bottomLine: "Look like the company people want to hire.",
-      image: "/campaigns/vote-christen-gsap/01-your-bill.webp",
-      imageAlt: "Scroll cinema demo — chapter one poster",
-      videoScrubSrc: "/campaigns/vote-christen-gsap/01-your-bill.scrub.mp4",
-      videoPlaybackSrc: "/campaigns/vote-christen-gsap/01-your-bill.web.mp4",
+      bottomLine: "A weak website undermines every channel that points to it.",
+      stageId: "website",
     },
     {
       number: "02",
-      navLabel: "Motion",
-      eyebrow: "Scroll cinema",
-      headline: "Stories That Move With the Page",
+      navLabel: "Services",
+      eyebrow: "Service pages",
+      headline: "Give Every Service Its Own Opportunity to Rank",
       paragraphs: [
-        "Pinned media, scrubbed film, and chaptered narratives hold attention longer than static pages. We build scroll experiences that feel cinematic without sacrificing clarity or speed.",
-        "Motion isn’t decoration—it’s pacing. The right rhythm keeps visitors engaged through the story you need them to hear.",
+        "One generic “Services” page rarely matches how customers search. Dedicated pages let each offer explain itself, prove credibility, and convert on its own.",
+        "That architecture creates more relevant entry points for Google — and clearer paths for people who already know what they need.",
       ],
-      bottomLine: "Hold attention long enough to earn the click.",
-      image: "/campaigns/vote-christen-gsap/02-your-water.webp",
-      imageAlt: "Scroll cinema demo — chapter two poster",
-      videoScrubSrc: "/campaigns/vote-christen-gsap/02-your-water.scrub.mp4",
-      videoPlaybackSrc: "/campaigns/vote-christen-gsap/02-your-water.web.mp4",
+      bottomLine: "Service pages turn vague traffic into qualified interest.",
+      stageId: "services",
     },
     {
       number: "03",
-      navLabel: "Tools",
-      eyebrow: "Interactive tools",
-      headline: "Interfaces Visitors Can Actually Use",
+      navLabel: "SEO",
+      eyebrow: "Search visibility",
+      headline: "Build Search Visibility Into the Architecture",
       paragraphs: [
-        "Maps, sliders, funnels, and custom UI turn browsers into participants. We ship interactive tools that demonstrate value and reduce friction on the path to contact.",
-        "When people can explore, compare, and decide on-page, they arrive at your CTA already convinced.",
+        "SEO is not a plugin bolted on later. Crawlable structure, clean URLs, metadata, internal links, and performance give search engines a site they can understand and trust.",
+        "When the foundation is right, organic search and paid traffic both have a stronger destination to convert.",
       ],
-      bottomLine: "Interaction converts better than explanation alone.",
-      image: "/campaigns/vote-christen-gsap/03-your-neighborhood.webp",
-      imageAlt: "Scroll cinema demo — chapter three poster",
-      videoScrubSrc: "/campaigns/vote-christen-gsap/03-your-neighborhood.scrub.mp4",
-      videoPlaybackSrc: "/campaigns/vote-christen-gsap/03-your-neighborhood.web.mp4",
+      bottomLine: "Structure is the SEO investment that compounds.",
+      stageId: "seo",
     },
     {
       number: "04",
-      navLabel: "Convert",
-      eyebrow: "Conversion craft",
-      headline: "Built to Perform—and Close",
+      navLabel: "Locations",
+      eyebrow: "Local markets",
+      headline: "Target the Markets You Want to Grow In",
       paragraphs: [
-        "Clear CTAs, fast loads, and polished details aren’t afterthoughts. We design every section toward a next step: book a call, request a quote, or start a project.",
-        "A beautiful site that doesn’t convert is unfinished. We ship work that’s ready to win leads from day one.",
+        "Location and service-area pages create relevant entry points for local searches — not one “areas we serve” block that ranks for nothing.",
+        "You expand into the cities and markets that matter to the business, with pages built to be found and understood.",
       ],
-      bottomLine: "Premium craft with a conversion job to do.",
-      image: "/campaigns/vote-christen-gsap/04-your-future.webp",
-      imageAlt: "Scroll cinema demo — chapter four poster",
-      videoScrubSrc: "/campaigns/vote-christen-gsap/04-your-future.scrub.mp4",
-      videoPlaybackSrc: "/campaigns/vote-christen-gsap/04-your-future.web.mp4",
+      bottomLine: "Local growth needs local entry points on the site.",
+      stageId: "locations",
+    },
+    {
+      number: "05",
+      navLabel: "AI Search",
+      eyebrow: "AI Search / AIO",
+      headline: "Help AI Search Understand Your Business",
+      paragraphs: [
+        "ChatGPT, Google AI Overviews, Perplexity, and similar systems need clear, structured information about who you are, what you do, where you operate, and why you are credible.",
+        "We organize content so modern answer engines can interpret your business — without promising placements you cannot control.",
+      ],
+      bottomLine: "If AI cannot understand you, it cannot recommend you.",
+      stageId: "aio",
+    },
+    {
+      number: "06",
+      navLabel: "Grow",
+      eyebrow: "Convert & scale",
+      headline: "Turn Visibility Into Opportunities — Then Scale",
+      paragraphs: [
+        "Calls, forms, bookings, and quote requests should be obvious on every important page. Traffic that cannot convert is wasted attention.",
+        "SEO, AI Search, service pages, locations, ads, and analytics connect through one website you can keep building on — growth infrastructure, not a brochure.",
+      ],
+      bottomLine: "One website. Multiple growth channels. Clear next steps.",
+      stageId: "convert",
+    },
+  ],
+  pillars: [
+    {
+      title: "SEO Foundation",
+      explain:
+        "Crawlable structure, technical readiness, clean URLs, metadata, internal linking, and mobile performance.",
+      businessValue: "Give Google a clearer site to crawl and understand.",
+    },
+    {
+      title: "Dedicated Service Pages",
+      explain:
+        "Not one generic Services page — a page for each offer customers actually search for.",
+      businessValue:
+        "Create more relevant pages for the searches your customers are actually making.",
+    },
+    {
+      title: "Location / Service-Area Architecture",
+      explain: "Service → city → market entry points for local growth.",
+      businessValue:
+        "Expand visibility into the markets your business wants to grow in.",
+    },
+    {
+      title: "AI Search / AIO",
+      explain:
+        "Structured content so AI systems can better interpret your company, services, expertise, locations, and proof.",
+      businessValue:
+        "Make your business easier for modern search systems to interpret.",
+    },
+    {
+      title: "Conversion System",
+      explain:
+        "CTAs, forms, phone, booking, proof, trust, and mobile UX designed to move visitors forward.",
+      businessValue: "Turn visitors into real opportunities.",
+    },
+    {
+      title: "Marketing-Ready Infrastructure",
+      explain:
+        "A base for Google Ads, SEO, remarketing, analytics, automation, CRM, and future campaigns.",
+      businessValue: "Build once, then grow on top of it.",
+    },
+  ],
+  aioSection: {
+    eyebrow: "AI Search / AIO",
+    title: "When Customers Ask AI, Make Sure It Can *Find You*",
+    lede:
+      "A growing share of buying decisions now starts in ChatGPT, Google AI Overviews, Perplexity, and similar answer engines — not a classic list of blue links.",
+    education: {
+      heading: "What AIO actually means",
+      body: "AI Optimization (AIO) is how you make your business legible to AI systems — so when someone asks who to hire, what to buy, or where to go, your company can be understood and cited.",
+      bullets: [
+        "Buyers type questions into AI the way they used to type keywords into Google.",
+        "Those systems need clear who / what / where / why-trust-you signals.",
+        "Your website structure is the primary source those systems learn from.",
+      ],
+    },
+    urgency: {
+      heading: "First-mover advantage is still open",
+      body: "Most competitors are still optimizing only for yesterday’s search results page. The businesses that structure for AI Search now build the footprint answer engines learn from first — and that early clarity compounds.",
+      punchLine: "If AI cannot understand you, it cannot recommend you.",
+    },
+    buildPoints: [
+      {
+        title: "Entity clarity",
+        body: "Consistent company, service, and location identity AI systems can parse with confidence.",
+      },
+      {
+        title: "Structured service & market pages",
+        body: "Dedicated pages that answer the exact questions buyers ask assistants — not one vague brochure block.",
+      },
+      {
+        title: "Citation-ready proof",
+        body: "Trust signals and facts organized so modern search can verify what you claim.",
+      },
+    ],
+    ctaLabel: "Get Your Website Plan",
+  },
+  processSteps: [
+    {
+      step: "01",
+      title: "Strategy call",
+      body: "We map services, markets, and conversion goals before design starts.",
+    },
+    {
+      step: "02",
+      title: "Architecture",
+      body: "Service pages, locations, SEO structure, and conversion paths get planned as one system.",
+    },
+    {
+      step: "03",
+      title: "Design & build",
+      body: "Premium craft with performance, clarity, and lead capture baked in.",
+    },
+    {
+      step: "04",
+      title: "Launch & measure",
+      body: "Analytics, tracking, and a clear plan for SEO, ads, and next growth layers.",
+    },
+  ],
+  faq: [
+    {
+      question: "Is SEO built into the website?",
+      answer:
+        "Yes. Structure, metadata, internal links, performance, and indexable pages are part of the build — not an afterthought.",
+    },
+    {
+      question: "Why do I need separate service pages?",
+      answer:
+        "Customers search for specific services. Dedicated pages give each offer a clearer path to rank, explain value, and convert.",
+    },
+    {
+      question: "What is AI Search / AIO?",
+      answer:
+        "AI-powered search and answer systems need clear, structured information about your business. We organize content so those systems can better understand what you do and where you operate — without guaranteeing placements.",
+    },
+    {
+      question: "Can you create location pages for the cities I serve?",
+      answer:
+        "Yes. Service-area architecture can expand into the markets you want to grow in, with relevant pages instead of one generic “areas we serve” block.",
+    },
+    {
+      question: "Can I run Google Ads to the site?",
+      answer:
+        "Yes. We build conversion-ready pages and tracking so paid traffic has clear paths to call, form, or book.",
+    },
+    {
+      question: "Can you redesign my existing website?",
+      answer:
+        "Yes. We can rebuild on your current domain with stronger structure, messaging, and conversion systems.",
+    },
+    {
+      question: "Do you handle website copy?",
+      answer:
+        "We collaborate on messaging and page structure so pages speak to search intent and business outcomes — not just design.",
+    },
+    {
+      question: "Can you manage and update the site after launch?",
+      answer:
+        "Yes. Ongoing updates, improvements, and growth layers can continue after launch so the site stays useful as you scale.",
     },
   ],
 };
@@ -153,8 +347,8 @@ export function toCampaignChrome(config: WebsiteShowcaseConfig): CampaignChromeP
     thankYouDestination: config.thankYouDestination,
     formSubject: config.formSubject,
     experimentVariant: config.experimentVariant,
-    finalHeadline: "Ready for a Website That Looks and Works Like This?",
+    finalHeadline: "Ready for a Website That Works Like Growth Infrastructure?",
     finalSubheadline:
-      "Tell us about your project. We’ll map a clear plan for design, interactivity, and conversion — no pressure, no generic pitch deck.",
+      "Tell us about your services, markets, and goals. We’ll map a clear website plan — no pressure, no generic pitch deck.",
   };
 }

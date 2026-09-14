@@ -74,7 +74,7 @@ const calStarMobilehomecrm: FeaturedWorkItem = {
   ],
 };
 
-/** Order keeps mobile-home projects at indices 0, 3, and 6 so they never appear adjacent (including carousel wrap). */
+/** Keep Cal Star + All Around (and other mobile-home entries) separated — never adjacent, including wrap. */
 export const featuredWorkCarouselItems: FeaturedWorkItem[] = [
   mobilehomecrm,
   {
@@ -233,6 +233,24 @@ export const featuredWorkCarouselItems: FeaturedWorkItem[] = [
     stats: [
       { value: "Commercial", label: "service positioning" },
       { value: "Quote", label: "first conversion path" },
+    ],
+  },
+  {
+    id: "cal-star-mobile",
+    type: "website",
+    name: "Cal Star Mobile Home Construction",
+    url: "https://calstarmobile.com/",
+    domain: "calstarmobile.com",
+    category: "Home Services Website",
+    tags: ["Website", "Home Services", "Lead Gen"],
+    description:
+      "Southern California mobile home repair and remodeling site — foundation, roofing, plumbing, HVAC, and remodel paths built to convert estimate requests across five counties.",
+    image: "/showcases/websites/cal-star-mobile.jpg",
+    imageAlt:
+      "Cal Star Mobile Home Construction website homepage — repair, remodeling, and foundation experts",
+    stats: [
+      { value: "15K+", label: "jobs completed trust proof" },
+      { value: "5", label: "SoCal counties covered" },
     ],
   },
 ];

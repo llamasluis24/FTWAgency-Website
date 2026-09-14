@@ -28,22 +28,57 @@ There are two page types:
 
 ---
 
-## Service showcase LP structure (shorter)
+## Service showcase LP structure (Website Design ads)
 
 Route: `/campaigns/website-design`
 
 Config: `content/campaigns/website-design-showcase.ts`  
 Template: `components/campaigns/showcase/WebsiteShowcaseTemplate.tsx`
 
-1. **Minimal header** — Primary CTA: “Want a website that looks like this?”
-2. **Capability hero** — Non-geo headline; secondary CTA scrolls to interactive demos
-3. **GSAP scroll story** — Capability-framed scroll cinema (pinned scrubbed film); reduced-motion = stacked cards
-4. **Interactivity demos** — Vertical stack of uniform mini-case study cards (maps, sliders, funnels, workflows)
-5. **Website gallery** — Mixed live portfolio cards with Visit Website links
-6. **Lead form** — Same campaign form chrome; `campaign_name=website_design_showcase`
-7. **Final CTA + Sticky CTA + Minimal footer**
+**Positioning:** Business-value first. The website is growth infrastructure (SEO, service pages, locations, AI Search, conversion, marketing readiness) — not “pretty design” alone. Interactivity is proof, not the main sales story.
 
-No case study, process, FAQ, or before/after on showcase pages.
+### Section order
+
+1. **Minimal header** — Primary CTA: “Get Your Website Plan” → `#campaign-lead-form`
+2. **Hero** — Growth-foundation headline; secondary CTA “See How It Works” → `#growth-system`
+3. **Basic vs Growth** — Concise visual compare (brochure site vs FTW growth website)
+4. **GSAP growth system** (`WebsiteGrowthSystemScroll`, `#growth-system`) — sticky-chapter engine (same pattern as former film scrub) with DOM/SVG `GrowthSystemStage` scrubbed by chapter progress; 6 panels: Website → Services → SEO → Locations → AI Search → Convert & Grow; mobile stacked snapshots; reduced-motion static chapters. No Vote Christen film on this LP.
+5. **What FTW builds** — Max 6 pillars with business-outcome lines
+6. **AIO advantage** (`WebsiteAioAdvantage`, `#aio`) — Educate on AI Search / AIO + first-mover urgency; three “built into your website” points; CTA → `#campaign-lead-form`. No outbound link to organic `/services/aio`.
+7. **Proof demos** — Max 2–3 interactive examples with business-value copy (trust/SEO foundation, local discovery / service-location architecture, visibility → opportunity). Currently: Farm House before/after, Visit Riverside map, Vertex funnel.
+8. **Real work gallery** — Screenshot cards only; **no** “Visit Website” / “View Full Portfolio” funnel leaks
+9. **Why this matters** — Get found / understood / trust / convert / grow
+10. **Process** — Concise campaign-only steps
+11. **FAQ** — SEO, service pages, AIO, locations, ads, redesign, copy, ongoing management
+12. **Lead form** — `campaign_name=website_design_showcase`
+13. **Final CTA + Sticky CTA + Minimal footer**
+
+### Showcase rules for future agents
+
+**What can change per campaign:** service, city, headline, proof set, case visuals, service-specific value copy.
+
+**What stays uniform:** campaign isolation, CTA → form, tracking, conversion flow, max 2–3 proof demos, no organic nav/sitemap, noindex convention, performance + reduced-motion GSAP fallbacks, funnel discipline (minimize outbound links).
+
+### CTA language (showcase)
+
+- Primary: Get Your Website Plan → `#campaign-lead-form`
+- Secondary: See How It Works → `#growth-system`
+
+### Visual conventions
+
+- Dark FTW theme (`bg-bg`, `text-heading`, `text-accent`)
+- `font-display` for headings
+- Accent buttons: `bg-accent text-[#04222b]`
+- Card surfaces: shared showcase chrome (`border-white/10`, ~1.25rem radius)
+- Hero visual: browser mockup with real FTW project screenshots — no stock photography
+- GSAP: sticky-chapter `WebsiteGrowthSystemScroll` + scrubbed DOM/SVG growth stage (desktop); stacked chapter snapshots (mobile); reduced-motion / SSR-visible static chapters; eager client import (no empty `ssr:false` skeleton); no client film scrub on this LP
+
+### Content rules (showcase)
+
+- Never invent testimonials, logos, metrics, or client quotes
+- Pull proof from approved repository portfolio assets only
+- Do not link prominently off-page from the gallery
+- Do not edit shared organic components for showcase-only needs — fork under `components/campaigns/showcase/`
 
 ---
 
@@ -57,9 +92,7 @@ No case study, process, FAQ, or before/after on showcase pages.
 
 **Geo pages:** Get Your Website Plan / Get a Website Strategy Call
 
-**Showcase pages:** Want a website that looks like this?
-
-Secondary (showcase): See interactive demos → `#showcase-demos`
+**Showcase pages:** Get Your Website Plan (primary); See How It Works → `#growth-system` (secondary)
 
 ## Visual conventions
 
@@ -68,7 +101,6 @@ Secondary (showcase): See interactive demos → `#showcase-demos`
 - Accent buttons: `bg-accent text-[#04222b]`
 - Card surfaces: shared showcase chrome (`border-white/10`, ~1.25rem radius)
 - Hero visual: browser mockup frame with real FTW project screenshot — no stock photography
-- GSAP showcase uses FTW dark cinematic theme (capability framing; demo narrative may use client film)
 
 ## Form fields (standard variant)
 
@@ -86,18 +118,18 @@ Hidden: attribution fields, campaign metadata, Web3Forms access key, honeypot
 - Pull case studies and quotes from existing approved repository content
 - City + service must appear naturally on geo pages — no keyword stuffing
 - Do not link prominently to competing organic local SEO URLs
-- Calculator ranges on showcase pages are educational demos only
 
 ## Accessibility
 
 - Semantic HTML (`header`, `main`, `section`, `footer`)
 - Form labels on all inputs
-- FAQ accordion with `aria-expanded` / `aria-controls`
+- FAQ accordion with `aria-expanded`
 - Visible focus states
-- Respect `prefers-reduced-motion` (before/after + GSAP pin story)
+- Respect `prefers-reduced-motion` (GSAP growth story falls back to static chapter snapshots)
 
 ## Performance
 
-- Server-render page shell; client boundaries for tracking, form, sticky CTA, GSAP, demos
+- Server-render page shell; client boundaries for tracking, form, sticky CTA, GSAP (dynamic import), demos
 - Optimize hero image with `priority` + appropriate `sizes`
 - Kill ScrollTrigger on unmount
+- Keep proof demos ≤3; avoid Mapbox/heavy widgets on this LP unless essential

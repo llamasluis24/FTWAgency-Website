@@ -86,7 +86,7 @@ const websiteDesignRiverside: CampaignPageConfig = {
   portfolioProofSlugs: [
     "visit-riverside",
     "farmhouse-collective",
-    "cal-star-mobilehomecrm",
+    "cal-star-mobile",
     "vertex-services",
   ],
   process: [

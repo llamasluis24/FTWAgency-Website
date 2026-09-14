@@ -3,6 +3,7 @@ import { allAroundMobileHomeService } from "./all-around-mobile-home-service";
 import { allExclusiveGlassHouse } from "./all-exclusive-glass-house";
 import { blueSocial } from "./blue-social";
 import { calStarMobilehomecrm } from "./cal-star-mobilehomecrm";
+import { calStarMobile } from "./cal-star-mobile";
 import { clearCartelCoors } from "./clear-cartel-coors";
 import { farmhouseCollective } from "./farmhouse-collective";
 import { ghosttrade } from "./ghosttrade";
@@ -33,5 +34,6 @@ export const projects: Project[] = [
   vertexServices,
   mendozerXEarthworks,
   fdcFire,
+  calStarMobile,
   voteChristen,
 ].map((p) => ProjectSchema.parse(p));
