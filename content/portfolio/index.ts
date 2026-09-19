@@ -16,11 +16,13 @@ import { mendozerXEarthworks } from "./mendozer-x-earthworks";
 import { fdcFire } from "./fdc-fire";
 import { wpconvertAi } from "./wpconvert-ai";
 import { voteChristen } from "./vote-christen";
+import { salesGoblin } from "./sales-goblin";
 
 /** All shipped websites, social reels & software featured across the site. */
 export const projects: Project[] = [
   mobilehomecrm,
   blueSocial,
+  salesGoblin,
   visitRiverside,
   rigoDemolitionBrentwood,
   allExclusiveGlassHouse,

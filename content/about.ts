@@ -145,6 +145,13 @@ export const aboutBuilding = {
       href: "/case-studies/mobilehomecrm-cal-star",
     },
     {
+      title: "Sales Goblin",
+      description:
+        "Multi-account Stripe companion — one real-time feed for payments, refunds, subscriptions, and alerts, plus Insights, widgets, and Sales Watch.",
+      tag: "Product",
+      href: "https://salesgoblin.app/",
+    },
+    {
       title: "Clear Cartel Automotive Restyling",
       description:
         "Coors Light–branded BMW wrap reveal reel — high-energy automotive content built to stop the scroll and drive shop inquiries for custom wraps and detailing.",

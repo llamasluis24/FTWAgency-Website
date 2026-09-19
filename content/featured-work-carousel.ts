@@ -95,6 +95,23 @@ export const featuredWorkCarouselItems: FeaturedWorkItem[] = [
     ],
   },
   {
+    id: "sales-goblin",
+    type: "software",
+    name: "Sales Goblin",
+    url: "https://salesgoblin.app/",
+    domain: "salesgoblin.app",
+    category: "Revenue Companion",
+    tags: ["Software", "Stripe", "iOS"],
+    description:
+      "Multi-account Stripe companion — unified feed for payments, refunds, subscriptions, and alerts, plus Insights, widgets, and Sales Watch.",
+    image: "/showcases/software/sales-goblin-hero.jpg",
+    imageAlt: "Sales Goblin homepage — every Stripe account, every sale, one feed",
+    stats: [
+      { value: "Multi", label: "Stripe accounts in one feed" },
+      { value: "Watch", label: "Lock Screen & Dynamic Island" },
+    ],
+  },
+  {
     id: "visit-riverside",
     type: "website",
     name: "Visit Riverside",
