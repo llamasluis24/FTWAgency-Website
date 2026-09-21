@@ -45,7 +45,7 @@ Template: `components/campaigns/showcase/WebsiteShowcaseTemplate.tsx`
 4. **GSAP growth system** (`WebsiteGrowthSystemScroll`, `#growth-system`) — sticky-chapter engine (same pattern as former film scrub) with DOM/SVG `GrowthSystemStage` scrubbed by chapter progress; 6 panels: Website → Services → SEO → Locations → AI Search → Convert & Grow; mobile stacked snapshots; reduced-motion static chapters. No Vote Christen film on this LP.
 5. **What FTW builds** — Max 6 pillars with business-outcome lines
 6. **AIO advantage** (`WebsiteAioAdvantage`, `#aio`) — Educate on AI Search / AIO + first-mover urgency; three “built into your website” points; CTA → `#campaign-lead-form`. No outbound link to organic `/services/aio`.
-7. **Proof demos** — Max 2–3 interactive examples with business-value copy (trust/SEO foundation, local discovery / service-location architecture, visibility → opportunity). Currently: Farm House before/after, Visit Riverside map, Vertex funnel.
+7. **Proof demos** — Max 2–3 interactive examples with business-value copy (trust/SEO foundation, local discovery / service-location architecture, visibility → opportunity). Currently: All Around Mobile Home before/after, Visit Riverside map, Vertex Search Architecture.
 8. **Real work gallery** — Screenshot cards only; **no** “Visit Website” / “View Full Portfolio” funnel leaks
 9. **Why this matters** — Get found / understood / trust / convert / grow
 10. **Process** — Concise campaign-only steps

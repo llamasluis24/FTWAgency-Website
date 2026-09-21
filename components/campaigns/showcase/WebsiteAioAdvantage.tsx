@@ -2,9 +2,19 @@
 
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container, Section } from "@/components/layout/Section";
+import { PlatformLogo } from "@/components/aio/PlatformLogo";
 import type { WebsiteShowcaseAioSection } from "@/content/campaigns/website-design-showcase";
+import type { AioLlmSlide } from "@/content/aio-demo";
 import { fireCampaignPrimaryCtaClick } from "@/lib/campaigns/conversions";
 import { getCampaignFormAnchorId } from "@/lib/campaigns/metadata";
+
+const LLM_PLATFORMS: { theme: AioLlmSlide["theme"]; label: string }[] = [
+  { theme: "chatgpt", label: "ChatGPT" },
+  { theme: "claude", label: "Claude" },
+  { theme: "gemini", label: "Gemini" },
+  { theme: "perplexity", label: "Perplexity" },
+  { theme: "copilot", label: "Copilot" },
+];
 
 export function WebsiteAioAdvantage({
   section,
@@ -27,6 +37,23 @@ export function WebsiteAioAdvantage({
           lede={section.lede}
           align="center"
         />
+
+        <ul className="mx-auto mb-10 flex max-w-5xl flex-nowrap items-center justify-center gap-2 overflow-x-auto pb-1 md:mb-12 md:gap-3 lg:gap-4">
+          {LLM_PLATFORMS.map((platform) => (
+            <li
+              key={platform.theme}
+              className="flex shrink-0 items-center gap-2.5 rounded-2xl border border-white/15 bg-[rgba(18,24,33,0.75)] px-3 py-2.5 sm:gap-3 sm:px-4 sm:py-3 md:gap-3.5 md:px-5 md:py-3.5"
+            >
+              <PlatformLogo
+                theme={platform.theme}
+                className="h-9 w-9 sm:h-10 sm:w-10 md:h-12 md:w-12"
+              />
+              <span className="whitespace-nowrap text-sm font-semibold text-white sm:text-base md:text-lg">
+                {platform.label}
+              </span>
+            </li>
+          ))}
+        </ul>
 
         <div className="mx-auto grid max-w-5xl gap-6 md:grid-cols-2">
           <div className="rounded-[1.25rem] border border-white/10 bg-[rgba(18,24,33,0.55)] p-6 md:p-8">

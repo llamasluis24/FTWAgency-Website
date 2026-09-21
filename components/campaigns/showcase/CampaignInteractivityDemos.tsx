@@ -6,8 +6,8 @@ import { GripVertical } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { Container, Section } from "@/components/layout/Section";
 import { ShowcaseVisitRiversideDirectory } from "@/components/campaigns/showcase/visit-riverside/ShowcaseVisitRiversideDirectory";
-import { VertexSalesFunnel } from "@/components/case-studies/vertex-services/VertexSalesFunnel";
-import { farmhouseImages } from "@/content/case-studies/farmhouse-collective";
+import { ShowcaseVertexSearchArchitecture } from "@/components/campaigns/showcase/ShowcaseVertexSearchArchitecture";
+import { websiteBeforeAfterExamples } from "@/content/website-portfolio-before-after";
 import { cn } from "@/lib/utils";
 
 type DemoCase = {
@@ -21,14 +21,18 @@ type DemoCase = {
   nativeReplica?: boolean;
 };
 
+const allAroundBeforeAfter =
+  websiteBeforeAfterExamples.find((example) => example.title === "Professional Services") ??
+  websiteBeforeAfterExamples[0];
+
 const CASES: DemoCase[] = [
   {
-    id: "farmhouse-before-after",
+    id: "all-around-before-after",
     eyebrow: "Trust & clarity",
     title: "Look Credible Before Anyone Calls",
     description:
       "A clear, professional site is the foundation for SEO and conversion — visitors decide if you are trustworthy before they ever pick up the phone.",
-    project: "Farm House Collective",
+    project: "All Around Mobile Home Service",
     hint: "Drag to compare",
   },
   {
@@ -42,13 +46,13 @@ const CASES: DemoCase[] = [
     nativeReplica: true,
   },
   {
-    id: "vertex-funnel",
-    eyebrow: "Visibility → opportunity",
-    title: "Turn Search Interest Into Real Business Opportunities",
+    id: "vertex-search-architecture",
+    eyebrow: "Search → page",
+    title: "Match Every Search Intent to a Page Built to Convert",
     description:
-      "Structured paths from discovery to contact show how a growth website converts traffic — organic, AI Search, or paid — into calls, forms, and booked work.",
+      "Hover the sitemap to preview how dedicated service and location pages map to real search intent — so visitors land on a clear next step, not a generic homepage.",
     project: "Vertex Services",
-    hint: "Hover the stages",
+    hint: "Hover or tap a page",
   },
 ];
 
@@ -89,16 +93,16 @@ function CompactBeforeAfter() {
         dragging.current = false;
       }}
       role="slider"
-      aria-label="Farm House Collective before and after comparison"
+      aria-label="All Around Mobile Home Service before and after website comparison"
       aria-valuenow={Math.round(position)}
       aria-valuemin={0}
       aria-valuemax={100}
     >
       <Image
-        src={farmhouseImages.afterPolaroid}
-        alt="Restored Farm House Motel"
+        src={allAroundBeforeAfter.after}
+        alt={allAroundBeforeAfter.afterTitle}
         fill
-        className="object-cover"
+        className="object-cover object-top"
         sizes="(max-width: 1024px) 100vw, 70vw"
       />
       <div
@@ -107,10 +111,10 @@ function CompactBeforeAfter() {
       >
         <div className="relative h-full" style={{ width: width || "100%" }}>
           <Image
-            src={farmhouseImages.beforePolaroid}
-            alt="Farm House Motel before restoration"
+            src={allAroundBeforeAfter.before}
+            alt={allAroundBeforeAfter.beforeTitle}
             fill
-            className="object-cover"
+            className="object-cover object-top"
             sizes="(max-width: 1024px) 100vw, 70vw"
           />
         </div>
@@ -124,10 +128,10 @@ function CompactBeforeAfter() {
         </div>
       </div>
       <span className="absolute left-3 top-3 rounded-full bg-bg/80 px-2.5 py-1 text-[10px] font-semibold text-muted backdrop-blur">
-        1953 — Before
+        Before — outdated site
       </span>
       <span className="absolute right-3 top-3 rounded-full bg-accent/15 px-2.5 py-1 text-[10px] font-semibold text-accent backdrop-blur">
-        2024 — After
+        After — conversion site
       </span>
     </div>
   );
@@ -135,16 +139,12 @@ function CompactBeforeAfter() {
 
 function DemoStage({ caseId }: { caseId: string }) {
   switch (caseId) {
-    case "farmhouse-before-after":
+    case "all-around-before-after":
       return <CompactBeforeAfter />;
     case "visit-riverside-map":
       return <ShowcaseVisitRiversideDirectory />;
-    case "vertex-funnel":
-      return (
-        <div className="flex justify-center py-2">
-          <VertexSalesFunnel />
-        </div>
-      );
+    case "vertex-search-architecture":
+      return <ShowcaseVertexSearchArchitecture />;
     default:
       return null;
   }
@@ -216,7 +216,7 @@ export function CampaignInteractivityDemos() {
         <SectionHeading
           eyebrow="Proof in practice"
           title="See How a Growth Website Earns Trust, Gets Found, and Converts"
-          lede="Three interactive examples — trust and clarity, local discovery, and paths from visibility to opportunity. Proof of execution; the growth system above is the sales story."
+          lede="Three interactive examples — trust and clarity, local discovery, and search-to-page architecture. Proof of execution; the growth system above is the sales story."
           align="center"
         />
 
